@@ -160,6 +160,9 @@ public class Task extends CommonInc{
 		public boolean hasHoursAndExpenses(){
 				return hours > 0 && expenses > 0;
 		}
+		public boolean isCompleted(){
+				return completed.equals("100");
+		}
 		public User getUser(){
 				if(user == null && !task_by.equals("")){
 						User one = new User(debug, task_by);
@@ -340,6 +343,7 @@ public class Task extends CommonInc{
 						return back;
 				}
 				Request rq = new Request(debug, request_id);
+				rq.setUser_id(task_by);
 				return rq.doClose();
 		}
 		

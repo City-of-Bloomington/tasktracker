@@ -17,7 +17,7 @@ public class Request extends CommonInc{
 		static Logger logger = Logger.getLogger(Request.class);	
     String id="", 
 				type_id="", 
-				status="",
+				status="", 
 				group_id="",
 				location="", 
 				date="", summary="", due_date="",
@@ -29,10 +29,12 @@ public class Request extends CommonInc{
 				dept="", // we merged dept and division
 				division="";
 		String assign_user_id=""; // adding new assignment
+		String user_id = ""; // needed for logs
 		Type type=null;
 		Group group = null;
 		List<Task> tasks = null;
 		List<Assignment> assignments = null;
+		List<RequestLog> logs = null;
     //
     // basic constructor
     //
@@ -112,8 +114,9 @@ public class Request extends CommonInc{
     }
     public
 				void setStatus(String val){
-				if(val != null)				
+				if(val != null){				
 						status = val;
+				}
     }
     public
 				void setUsername(String val){ 
@@ -179,7 +182,12 @@ public class Request extends CommonInc{
 				void setAssign_user_id(String val){
 				if(val != null && !val.equals("-1"))				
 						assign_user_id = val;
-    }				
+    }
+    public
+				void setUser_id(String val){
+				if(val != null && !val.equals("-1"))				
+						user_id = val;
+    }					
     //
     // getters
     //
@@ -285,6 +293,7 @@ public class Request extends CommonInc{
 				return assignments;
 		}
 		public boolean hasAssignments(){
+				if(id.equals("")) return false;
 				getAssignments();
 				return assignments != null && assignments.size() > 0;
 		}
@@ -300,11 +309,31 @@ public class Request extends CommonInc{
 						}
 				}
 				return tasks;
-		}		
+		}
 		public boolean hasTasks(){
+				if(id.equals("")) return false;
 				getTasks();
 				return tasks != null && tasks.size() > 0;
-		}		
+		}				
+		public List<RequestLog> getLogs(){
+				if(!id.equals("") && logs == null){
+						RequestLogList al = new RequestLogList(debug, id);
+						String back = al.find();
+						if(back.equals("")){
+								List<RequestLog> ones = al.getLogs();
+								if(ones  != null && ones.size() > 0){
+										logs = ones;
+								}
+						}
+				}
+				return logs;
+		}
+		public boolean hasLogs(){
+				if(id.equals("")) return false;
+				getLogs();
+				return logs != null && logs.size() > 0;
+		}
+
     public String doSave(){
 				String msg = "";
 				Connection con = null;
@@ -349,14 +378,18 @@ public class Request extends CommonInc{
 				finally{
 						Helper.databaseDisconnect(con, stmt, rs);
 				}
+				String notes = null;
 				if(msg.equals("")){
 						if(!assign_user_id.equals("")){
 								Assignment asm = new Assignment(debug, assign_user_id, id);
 								msg = asm.doSave();
+								notes = " request assigned to user id "+assign_user_id;
 						}
 				}				
 				if(msg.equals("")){
-						msg = doSelect();
+						RequestLog rl = new RequestLog(debug, null, id, user_id, null, "Created",notes);
+						msg = rl.doSave();
+						msg += doSelect();
 				}
 				return msg; 
 		}
@@ -468,20 +501,24 @@ public class Request extends CommonInc{
 				finally{
 						Helper.databaseDisconnect(con, stmt, rs);
 				}
+				String notes = null; // for logs
 				if(msg.equals("")){
 						if(!assign_user_id.equals("")){
 								Assignment asm = new Assignment(debug, assign_user_id, id);
 								msg = asm.doSave();
+								notes = " new assignment to user id "+assign_user_id;
 						}
 				}
 				if(msg.equals("")){				
 						if(status.equals("Unassigned") && !assign_user_id.equals("")){
-								status = "Active";
+								// status = "Active";
 								msg = updateStatus("Active");
 						}
 				}
-				if(msg.equals("")){						
-						msg = doSelect();
+				if(msg.equals("")){
+						RequestLog rl = new RequestLog(debug, null, id, user_id, null, "Updated",notes);
+						msg = rl.doSave();
+						msg += doSelect();
 				}
 				return msg; 
     }
@@ -490,7 +527,6 @@ public class Request extends CommonInc{
 				Connection con = null;
 				PreparedStatement stmt = null;
 				ResultSet rs = null;
-				status = new_status;
 				String qq = "update requests set status=? where id=? ";
 				if(debug){
 						logger.debug(qq);
@@ -503,7 +539,7 @@ public class Request extends CommonInc{
 				}			
 				try{
 						stmt = con.prepareStatement(qq);
-						stmt.setString(1, status);
+						stmt.setString(1, new_status);
 						stmt.setString(2,id);
 						stmt.executeUpdate();
 				}
@@ -513,6 +549,19 @@ public class Request extends CommonInc{
 				}
 				finally{
 						Helper.databaseDisconnect(con, stmt, rs);
+				}
+				/**
+				 * changing status to Active, means it was either Closed or Cancelled
+				 */
+				if(msg.equals("")){
+						String notes = "status changed to "+new_status;
+						String type = "Updated";
+						if(new_status.equals("Closed")) type ="Closed";
+						else if(new_status.equals("Cancelled")) type ="Cancelled";
+						else if(new_status.equals("Active") && !status.equals("Unassigned")) type="Reopen";
+						status = new_status;
+						RequestLog rl = new RequestLog(debug, null, id, user_id, null, type,notes);
+						msg = rl.doSave();
 				}
 				return msg; 
     }		 

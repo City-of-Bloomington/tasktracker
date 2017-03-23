@@ -165,7 +165,6 @@ public class UserList extends CommonInc{
 								
 						}
 						if(!request_id.equals("") && exclude_current_request_assignees){
-								qq += ", assignments asm ";
 								if(!qw.equals("")) qw += " and ";
 								qw += " not u.id in (select a.user_id from assignments a where a.request_id=? ) ";
 						}
@@ -217,8 +216,7 @@ public class UserList extends CommonInc{
 										pstmt.setString(jj++,exclude_group_id);		
 								}
 								if(!request_id.equals("") && exclude_current_request_assignees){
-
-										pstmt.setString(jj++,request_id);		
+										pstmt.setString(jj++,request_id);
 								}
 						}
 						rs = pstmt.executeQuery();

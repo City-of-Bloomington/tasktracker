@@ -41,6 +41,16 @@ public class TaskAction extends TopAction{
 						}
 						else{
 								addActionMessage("Added Successfully");
+								if(task.isCompleted()){
+										try{
+												HttpServletResponse res = ServletActionContext.getResponse();
+												String str = url+"request.action?id="+task.getRequest_id();
+												res.sendRedirect(str);
+												return super.execute();
+										}catch(Exception ex){
+												System.err.println(ex);
+										}											
+								}
 						}
 				}				
 				else if(action.startsWith("Save")){
@@ -51,6 +61,16 @@ public class TaskAction extends TopAction{
 						}
 						else{
 								addActionMessage("Updated Successfully");
+								if(task.isCompleted()){
+										try{
+												HttpServletResponse res = ServletActionContext.getResponse();
+												String str = url+"request.action?id="+task.getRequest_id();
+												res.sendRedirect(str);
+												return super.execute();
+										}catch(Exception ex){
+												System.err.println(ex);
+										}	
+								}
 						}
 				}
 				else{		

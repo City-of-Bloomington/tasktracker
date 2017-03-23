@@ -23,7 +23,8 @@ public class RequestAction extends TopAction{
 		List<Group> groups = null; // all request will be based on a group selected
 		List<User> users = null;
 		String requestsTitle = "Current requests";
-		String tasksTitle = "Request Actions";		
+		String tasksTitle = "Request Actions";
+		String logsTitle = "Request History";		
 		public String execute(){
 				String ret = SUCCESS;
 				String back = doPrepare();
@@ -42,6 +43,7 @@ public class RequestAction extends TopAction{
 						}
 				}
 				if(action.equals("Save")){
+						request.setUser_id(user.getId());
 						back = request.doSave();
 						if(!back.equals("")){
 								addActionError(back);
@@ -50,7 +52,8 @@ public class RequestAction extends TopAction{
 								addActionMessage("Added Successfully");
 						}
 				}				
-				else if(action.startsWith("Save")){ 
+				else if(action.startsWith("Save")){
+						request.setUser_id(user.getId());
 						back = request.doUpdate();
 						group_id = request.getGroup_id();
 						if(!back.equals("")){
@@ -60,7 +63,8 @@ public class RequestAction extends TopAction{
 								addActionMessage("Updated Successfully");
 						}
 				}
-				else if(action.startsWith("Cancel")){ 
+				else if(action.startsWith("Cancel")){
+						request.setUser_id(user.getId());
 						back = request.updateStatus("Cancelled");
 						if(!back.equals("")){
 								addActionError(back);
@@ -73,6 +77,7 @@ public class RequestAction extends TopAction{
 				}
 				else if(action.startsWith("Open")){
 						getRequest();
+						request.setUser_id(user.getId());
 						back = request.updateStatus("Active");
 						if(!back.equals("")){
 								addActionError(back);
@@ -148,6 +153,9 @@ public class RequestAction extends TopAction{
 		}
 		public String getTasksTitle(){
 				return tasksTitle;
+		}
+		public String getLogsTitle(){
+				return logsTitle;
 		}		
 		public void setAction2(String val){
 				if(val != null && !val.equals(""))		
@@ -206,7 +214,6 @@ public class RequestAction extends TopAction{
 								ul.excludeCurrentRequestAssignees();
 						}
 						String back = ul.find();
-						System.err.println(" users "+back);
 						if(back.equals("")){
 								List<User> ones = ul.getUsers();
 								users = ones;
@@ -218,6 +225,7 @@ public class RequestAction extends TopAction{
 				getUsers();
 				return users != null && users.size() > 0;
 		}
+		
 }
 
 

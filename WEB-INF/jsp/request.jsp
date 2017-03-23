@@ -134,6 +134,11 @@
 			<s:set var="tasksTitle" value="tasksTitle" />
 			<%@ include file="tasks.jsp" %>
 		</s:if>
+		<s:if test="request.hasLogs()">
+			<s:set var="logs" value="request.logs" />
+			<s:set var="logsTitle" value="logsTitle" />
+			<%@ include file="logs.jsp" %>			
+		</s:if>
 	</s:else>
 </s:form>
 <s:if test="request.id == ''">
