@@ -1,0 +1,11 @@
+<Context>
+   <Resource name="jdbc/MySQL_task" auth="Container"
+						 type="javax.sql.DataSource" 
+						 username="tasktracker"
+						 password="your password"
+						 driverClassName="com.mysql.jdbc.Driver"
+						 url="jdbc:mysql://localhost:3306/tasktracker?autoReconnect=true" 
+						 removeAbandoned="true"
+						 removeAbandonedTimeout="60"
+						 maxActive="6"  /> 
+</Context> 
