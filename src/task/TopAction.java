@@ -27,9 +27,9 @@ public abstract class TopAction extends ActionSupport implements SessionAware, S
 
 		static final long serialVersionUID = 2400L;	
 		boolean debug = false;
-		String action="", url="", id="";
-		String sqliteDbFile = "";
+		String action="", id="";
 		static Logger logger = Logger.getLogger(TopAction.class);
+		static String url="", server_path="";
 		User user = null;
 	  ServletContext ctx;
 		Map<String, Object> sessionMap;
@@ -66,9 +66,9 @@ public abstract class TopAction extends ActionSupport implements SessionAware, S
 								String val = ctx.getInitParameter("url");
 								if(val != null)
 										url = val;
-								val = ctx.getInitParameter("sqliteDbFile");
+								val = ctx.getInitParameter("server_path");
 								if(val != null)
-										sqliteDbFile = val;								
+										server_path = val;								
 						}
 				}catch(Exception ex){
 						System.out.println(ex);

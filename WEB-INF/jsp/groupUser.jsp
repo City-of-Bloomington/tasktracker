@@ -43,7 +43,7 @@
 	</s:if>
 	<s:if test="groupUser.hasGroupUsers()">
 		<table width="90%" border="1"><caption><s:property value="groupUsersTitle" /></caption>
-			<tr><td>**</td><td>Name</td></tr>			
+			<tr><td>**</td><td>Name</td><td>Group(s)</td></tr>			
 			<s:iterator var="one" value="groupUser.group_users">
 			<tr>
 				<td><input type="checkbox" name="groupUser.del_users" value="<s:property value='id' />" /></td>

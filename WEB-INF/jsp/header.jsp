@@ -61,8 +61,8 @@
       <nav class="fn1-nav1-container">
 				<a href="<s:property value='#application.url'/>request.action">New Request</a>
 				<a href="<s:property value='#application.url'/>tasks.action">Active Task List</a>
-				<a href="<s:property value='#application.url'/>search.action?activeOnly=true&action=search&assign_user_id=<s:property value='#session.user.id' />">Assinged to me</a>				
-				<a href="<s:property value='#application.url'/>search.action?activeOnly=true&action=search">Active Requests</a>
+				<a href="<s:property value='#application.url'/>requests.action?assigned_user_id=<s:property value='#session.user.id' />">Assinged to me</a>				
+				<a href="<s:property value='#application.url'/>requests.action?activeOnly=true">Active Requests</a>
 				<a href="<s:property value='#application.url'/>search.action">Search</a>
       </nav>
     </div>

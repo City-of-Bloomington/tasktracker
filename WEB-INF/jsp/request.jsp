@@ -126,6 +126,7 @@
 		<s:if test="request.canBeChanged()">
 			<s:submit name="action" type="button" value="Save Changes" class="fn1-btn"/>
 			<a href="<s:property value='#application.url' />task.action?request_id=<s:property value='id' />" class="fn1-btn">New Action</a>
+			<a href="<s:property value='#application.url' />doUpload.action?request_id=<s:property value='id' />" class="fn1-btn">Attachments</a>			
 			<s:submit name="action" type="button" value="Cancel This Request" class="fn1-btn" onclick="return verifyCancel();" />
 		</s:if>
 		<s:if test="request.hasTasks()">

@@ -33,7 +33,7 @@
 		</dl>
 		<dl class="fn1-output-field">
 			<dt>Assigned To </dt>
-			<dd><s:select name="reqlst.assign_user_id" value="%{reqlst.assign_user_id}" list="users" listKey="id" listValue="fullname" headerKey="-1" headerValue="All"/></dd>
+			<dd><s:select name="reqlst.assigned_user_id" value="%{reqlst.assigned_user_id}" list="users" listKey="id" listValue="fullname" headerKey="-1" headerValue="All"/></dd>
 		</dl>
 		<dl class="fn1-output-field">
 			<dt>Status</dt>

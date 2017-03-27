@@ -16,8 +16,9 @@ public class UserList extends CommonInc{
 		static Logger logger = Logger.getLogger(UserList.class);
 		static final long serialVersionUID = 3100L;
 		String name = "", id="", username="", role="",
-				limit="limit 30";
-		String group_id = "", request_id="", exclude_group_id="", exclude_dept_id="",
+				limit="";
+		String group_id = "", request_id="", exclude_group_id="",
+				exclude_dept_id="",
 				dept_id="", division_id="";
 		boolean exclude_current_request_assignees = false;
 		

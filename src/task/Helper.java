@@ -4,14 +4,16 @@ package task;
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author W. Sibo <sibow@bloomington.in.gov>
  */
+import java.io.File;
 import java.sql.*;
 import java.util.*;
 import javax.sql.*;
+import java.nio.file.*;
 import javax.naming.*;
 import javax.naming.directory.*;
 import org.apache.log4j.Logger;
 
-
+@SuppressWarnings("unchecked")
 public class Helper{
 
 		static final long serialVersionUID = 1300L;
@@ -87,7 +89,108 @@ public class Helper{
 				//
 				debug = deb;
     }
+		final static String getFileExtension(String filename, File file) {
+				String ext = "";
+				try {
+						// name does not include path
+						if(filename.indexOf(".") > -1){						
+								ext =  filename.substring(filename.lastIndexOf(".") + 1);
+						}
+						if(ext.equals("")){
+								String name = file.getName();
+								String pp = file.getAbsolutePath();
+								Path path = Paths.get(pp);
+								String fileType = Files.probeContentType(path);
+								if(fileType != null){
+										// application/pdf
+										if(fileType.endsWith("pdf")){
+												ext="pdf";
+										}
+										//image/jpeg
+										else if(fileType.endsWith("jpeg")){
+												ext="jpg";
+										}
+										//image/gif
+										else if(fileType.endsWith("gif")){
+												ext="gif";
+										}
+										//image/bmp
+										else if(fileType.endsWith("bmp")){
+												ext="bmp";
+										}
+										// application/msword
+										else if(fileType.endsWith("msword")){
+												ext="doc";
+										}
+										//application/vnd.ms-excel
+										else if(fileType.endsWith("excel")){
+												ext="csv";
+										}
+										//application/vnd.openxmlformats-officedocument.wordprocessingml.document
+										else if(fileType.endsWith(".document")){
+												ext="docx";
+										}
+										// text/plain
+										else if(fileType.endsWith("plain")){
+												ext="txt";
+										}
+										//application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+										else if(fileType.endsWith(".sheet")){
+												ext="xlsx";
+										}
+										// audio/wav
+										else if(fileType.endsWith("wav")){
+												ext="wav";
+										}
+										// text/xml
+										else if(fileType.endsWith("xml")){
+												ext="xml";
+										}										
+										else if(fileType.endsWith("html")){
+												ext="html";
+										}
+										// video/mng
+										else if(fileType.endsWith("mng")){
+												ext="mng";
+										}
+										else if(fileType.endsWith("mpeg")){
+												ext="mpg";
+										}
+										// video/mp4
+										else if(fileType.endsWith("mp4")){
+												ext="mp4";
+										}										
+										else if(fileType.endsWith("avi")){
+												ext="avi";
+										}
+										else if(fileType.endsWith("mov")){
+												ext="mov";
+										}
+										// quick time video
+										else if(fileType.endsWith("quicktime")){
+												ext="qt";
+										}
+										else if(fileType.endsWith("wmv")){
+												ext="wmv"; 
+										}
+										else if(fileType.endsWith("asf")){
+												ext="asf";
+										}
+										// flash video
+										else if(fileType.endsWith("flash")){
+												ext="swf";
+										}										
+										else if(fileType.startsWith("image")){
+												ext="jpg";
+										}
 
+								}
+						}
+				} catch (Exception e) {
+						System.err.println(e);
+				}
+				return ext;
+		}		
     //
     /**
      * Adds escape character before certain characters

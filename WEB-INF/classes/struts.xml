@@ -6,7 +6,7 @@
 <struts>
   <constant name="struts.devMode" value="true" />
   <constant name="struts.ui.theme" value="simple" />
-  <constant name="struts.action.excludePattern" value="/Login*,/Logout*,/EmployeeService*,/GroupUserService*" />
+  <constant name="struts.action.excludePattern" value="/Login*,/Logout*,/EmployeeService*,/GroupUserService*,/doDownload*" />
 
   <package name="default" extends="struts-default">
 
@@ -55,6 +55,13 @@
 			<result name="input">/WEB-INF/jsp/search.jsp</result>		
 			<result name="error">/WEB-INF/jsp/search.jsp</result>
 			<result name="success">/WEB-INF/jsp/search.jsp</result>
+		</action>
+		<action name="requests" 
+						class="task.RequestsAction" 
+						method="execute">
+			<result name="input">/WEB-INF/jsp/active_requests.jsp</result>		
+			<result name="error">/WEB-INF/jsp/active_requests.jsp</result>
+			<result name="success">/WEB-INF/jsp/active_requests.jsp</result>
 		</action>		
 		<action name="user" 
 						class="task.UserAction" 
@@ -77,7 +84,6 @@
 			<result name="error">/WEB-INF/jsp/group.jsp</result>
 			<result name="success">/WEB-INF/jsp/group.jsp</result>
 		</action>
-<!--				
 				
 		<action name="doUpload" 
 						class="task.UploadAction" 
@@ -86,8 +92,7 @@
 			<result name="error">/WEB-INF/jsp/fileUpload.jsp</result>
 			<result name="success">/WEB-INF/jsp/fileUpload.jsp</result>
 		</action>
-				
-		-->
+
   </package>
 
 </struts>

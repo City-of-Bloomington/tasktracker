@@ -96,7 +96,7 @@ public class TaskList extends CommonInc{
 								qw += " u.task_by=? ";
 						}
 						if(active_only){
-								qw += " u.completed < 100 ";
+								qw += " u.completed != '100' ";
 						}						
 						if(!completed.equals("")){
 								if(!qw.equals("")) qw += " and ";

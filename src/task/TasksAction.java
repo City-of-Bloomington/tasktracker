@@ -16,6 +16,7 @@ public class TasksAction extends TopAction{
 		static final long serialVersionUID = 2210L;	
 		static Logger logger = Logger.getLogger(TasksAction.class);
 		//
+		boolean active_only = true;
 		String request_id = "";
 		Task task = null;
 		List<Task> tasks = null;
@@ -43,6 +44,9 @@ public class TasksAction extends TopAction{
 		public void setAction2(String val){
 				if(val != null && !val.equals(""))		
 						action = val;
+		}
+		public void setActiveOnly(boolean val){
+				active_only = val;
 		}
 		public List<Task> getTasks(){
 				if(tasks == null){

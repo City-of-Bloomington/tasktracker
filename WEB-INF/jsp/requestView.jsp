@@ -77,7 +77,7 @@
 			<dt>Details </dt>
 			<dd><s:property value="%{request.description}" /></dd>
 		</dl>
-		<a href="<s:property value='#application.url' />request.action?action=Open&id=<s:property value='id' />">Re-Open This Request</a></td>		
+		<a href="<s:property value='#application.url' />request.action?action=Open&id=<s:property value='id' />" class="fn1-btn">Re-Open This Request</a></td>		
 </div>
 <s:if test="request.hasTasks()">
 	<s:set var="tasks" value="request.tasks" />

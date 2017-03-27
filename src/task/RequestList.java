@@ -22,7 +22,7 @@ public class RequestList extends CommonInc{
 		String group_id = "", division="", dept="", type_id="", status="",
 				date_from="", date_to="", which_date = "r.date", location="",
 				content="", // summary or description
-				username="", phone="", assign_user_id="";
+				username="", phone="", assigned_user_id="";
 		boolean active_only = false;
 		List<Request> requests = null;
 		public RequestList(){
@@ -46,9 +46,9 @@ public class RequestList extends CommonInc{
 				if(val != null && !val.equals("-1"))
 						group_id = val;
 		}
-		public void setAssign_user_id(String val){
+		public void setAssigned_user_id(String val){
 				if(val != null && !val.equals("-1"))
-						assign_user_id = val;
+						assigned_user_id = val;
 		}		
 		public void setDept(String val){
 				if(val != null)
@@ -85,11 +85,11 @@ public class RequestList extends CommonInc{
 				}
 				return group_id;
 		}
-		public String getAssign_user_id(){
-				if(assign_user_id.equals("")){
+		public String getAssigned_user_id(){
+				if(assigned_user_id.equals("")){
 						return "-1";
 				}
-				return assign_user_id;
+				return assigned_user_id;
 		}		
 		public String getType_id(){
 				if(type_id.equals("")){
@@ -186,7 +186,7 @@ public class RequestList extends CommonInc{
 								if(!qw.equals("")) qw += " and ";
 								qw += which_date+" <= ?";										
 						}
-						if(!assign_user_id.equals("")){
+						if(!assigned_user_id.equals("")){
 								if(!qw.equals("")) qw += " and ";
 								qq += ", assignments a ";
 								qw += " a.user_id = ? and a.request_id=r.id ";
@@ -238,8 +238,8 @@ public class RequestList extends CommonInc{
 										java.util.Date date_tmp = df.parse(date_to);
 										pstmt.setDate(jj++, new java.sql.Date(date_tmp.getTime()));
 								}
-								if(!assign_user_id.equals("")){
-										pstmt.setString(jj++,assign_user_id);		
+								if(!assigned_user_id.equals("")){
+										pstmt.setString(jj++,assigned_user_id);		
 								}
 						}
 						rs = pstmt.executeQuery();
