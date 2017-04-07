@@ -12,7 +12,8 @@
 				<th align="center"><b>Request</b></th>
 				<th align="center"><b>Date</b></th>
 				<th align="center"><b>Type</b></th>
-				<th align="center"><b>Group</b></th>			
+				<th align="center"><b>Group</b></th>
+				<th align="center"><b>Location</b></th>				
 				<th align="center"><b>Status</b></th>
 				<th align="center"><b>Destails</b></th>
 			</tr>
@@ -24,6 +25,7 @@
 					<td><s:property value="date" /></td>
 					<td><s:property value="type" /></td>
 					<td><s:property value="group" /></td>
+					<td><s:property value="locationInfo" /></td>					
 					<td><s:property value="status" /></td>
 					<td><s:property value="description" /></td>
 				</tr>

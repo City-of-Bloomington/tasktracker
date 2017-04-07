@@ -40,7 +40,7 @@
 			</dl>
 			<dl class="fn1-output-field">
 				<dt>Location </dt>
-				<dd><s:property value="%{request.location}" /> </dd>
+				<dd><s:property value="%{request.locationInfo}" /> </dd>
 			</dl>
 			<dl class="fn1-output-field">
 				<dt>Date </dt>
@@ -51,19 +51,21 @@
 			<dl class="fn1-output-field">
 				<dt>Due Date </dt>
 				<dd><s:property value="%{request.due_date}" /> </dd>
-			</dl>				
-			<dl class="fn1-output-field">
-				<dt>Employee Name</dt>
-				<dd><s:property value="%{request.fullname}" /> </dd>
 			</dl>
-			<dl class="fn1-output-field">
-				<dt>Employee Dept </dt>
-				<dd id="dept"> <s:property value="request.dept" /></dd>
-			</dl>
-			<dl class="fn1-output-field">
-				<dt>Employee Phone</dt>
-				<dd id="phone"><s:property value="request.phone" /></dd>
-			</dl>
+			<s:if test="request.hasEmployee()">
+				<dl class="fn1-output-field">
+					<dt>Employee Name</dt>
+					<dd><s:property value="%{request.employee.fullname}" /> </dd>
+				</dl>
+				<dl class="fn1-output-field">
+					<dt>Employee Dept </dt>
+					<dd id="dept"> <s:property value="request.employee.dept" /></dd>
+				</dl>
+				<dl class="fn1-output-field">
+					<dt>Employee Phone</dt>
+					<dd id="phone"><s:property value="request.employee.phone" /></dd>
+				</dl>
+			</s:if>
 			<s:if test="request.hasAssignments()">
 				<dl class="fn1-output-field">
 					<dt>Assignments: </dt>

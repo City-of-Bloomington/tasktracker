@@ -21,7 +21,7 @@
 	<div class="tt-row-container">
 		<dl class="fn1-output-field">
 			<dt>Request ID</dt>
-				<dd><s:textfield name="reqlst.id" value="%{reqlst.name}" size="10" maxlength="10" /> </dd>
+				<dd><s:textfield name="reqlst.id" value="%{reqlst.id}" size="10" maxlength="10" /> </dd>
 		</dl>		
 		<dl class="fn1-output-field">
 			<dt>Type </dt>
@@ -29,11 +29,15 @@
 		</dl>
 		<dl class="fn1-output-field">
 			<dt>Group </dt>
-			<dd><s:select name="reqlst.group_id" value="%{reqlst.group_id}" list="groups" listKey="id" listValue="name" headerKey="-1" headerValue="All"/></dd>
+				<dd><s:select name="reqlst.group_id" value="%{reqlst.group_id}" list="groups" listKey="id" listValue="name" headerKey="-1" headerValue="All" onchange="changeGroupUsers(this,'assigned_user_id');"/></dd>			
 		</dl>
 		<dl class="fn1-output-field">
+			<dt>Location </dt>
+				<dd><s:select name="reqlst.location_id" value="%{reqlst.location_id}" list="locations" listKey="id" listValue="name" headerKey="-1" headerValue="All" /></dd>			
+		</dl>		
+		<dl class="fn1-output-field">
 			<dt>Assigned To </dt>
-			<dd><s:select name="reqlst.assigned_user_id" value="%{reqlst.assigned_user_id}" list="users" listKey="id" listValue="fullname" headerKey="-1" headerValue="All"/></dd>
+			<dd><s:select name="reqlst.assigned_user_id" value="%{reqlst.assigned_user_id}" list="users" listKey="id" listValue="fullname" headerKey="-1" headerValue="All" id="assigned_user_id" /></dd>
 		</dl>
 		<dl class="fn1-output-field">
 			<dt>Status</dt>

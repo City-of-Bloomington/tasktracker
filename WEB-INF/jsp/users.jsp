@@ -11,6 +11,7 @@
 			<th align="center"><b>ID</b></th>
 			<th align="center"><b>Username</b></th>
 			<th align="center"><b>Full Name</b></th>
+			<th align="center"><b>Email</b></th>
 			<th align="center"><b>Role</b></th>
 			<th align="center"><b>Groups</b></th>
 		</tr>
@@ -21,6 +22,7 @@
 				<td><a href="<s:property value='#application.url' />user.action?id=<s:property value='id' />"> <s:property value="id" /></a></td>
 				<td><s:property value="username" /></td>				
 				<td><s:property value="fullname" /></td>
+				<td><s:property value="email" /></td>				
 				<td><s:property value="roleInfo" /></td>
 				<td>&nbsp;<s:property value="groupNames" /></td>
 			</tr>

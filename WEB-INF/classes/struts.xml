@@ -56,6 +56,13 @@
 			<result name="error">/WEB-INF/jsp/search.jsp</result>
 			<result name="success">/WEB-INF/jsp/search.jsp</result>
 		</action>
+		<action name="assignToOthers" 
+						class="task.SearchAction" 
+						method="execute">
+			<result name="input">/WEB-INF/jsp/assignToOthers.jsp</result>		
+			<result name="error">/WEB-INF/jsp/assignToOthers.jsp</result>
+			<result name="success">/WEB-INF/jsp/assignToOthers.jsp</result>
+		</action>		
 		<action name="requests" 
 						class="task.RequestsAction" 
 						method="execute">
@@ -92,7 +99,13 @@
 			<result name="error">/WEB-INF/jsp/fileUpload.jsp</result>
 			<result name="success">/WEB-INF/jsp/fileUpload.jsp</result>
 		</action>
-
+		<action name="report" 
+						class="task.ReportAction" 
+						method="execute">
+			<result name="input">/WEB-INF/jsp/reportInput.jsp</result>		
+			<result name="error">/WEB-INF/jsp/reportInput.jsp</result>
+			<result name="success">/WEB-INF/jsp/reportResult.jsp</result>
+		</action>
   </package>
 
 </struts>

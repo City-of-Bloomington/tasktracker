@@ -77,7 +77,7 @@ public class EmployeeService extends HttpServlet{
 								action = value;
 						}
 						else{
-								System.err.println(name+" "+value);
+								// System.err.println(name+" "+value);
 						}
 				}
 				EmpList empList =  null;
@@ -122,7 +122,7 @@ public class EmployeeService extends HttpServlet{
 				String json="";
 				for(Employee one:emps){
 						if(!json.equals("")) json += ",";
-						json += "{\"id\":\""+one.getUsername()+"\",\"value\":\""+one.getFullname()+"\",\"username\":\""+one.getUsername()+"\",\"phone\":\""+one.getPhone()+"\",\"dept\":\""+one.getDept_division()+"\"}";
+						json += "{\"id\":\""+one.getFullname()+"\",\"value\":\""+one.getFullname()+"\",\"email\":\""+one.getEmail()+"\",\"fullname\":\""+one.getFullname()+"\",\"phone\":\""+one.getPhone()+"\",\"dept\":\""+one.getDept()+"\",\"division\":\""+one.getDivision()+"\",\"title\":\""+one.getJobTitle()+"\"}";
 				}
 				json = "["+json+"]";
 				// System.err.println("json "+json);

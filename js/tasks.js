@@ -35,8 +35,10 @@ $("#emp_name").autocomplete({
 						$("#phone").html(ui.item.phone);
 						$("#dept").html(ui.item.dept);
 						$("#h_phone").val(ui.item.phone);
-						$("#h_username").val(ui.item.username);
+						$("#h_email").val(ui.item.email);
 						$("#h_dept").val(ui.item.dept);
+						$("#h_division").val(ui.item.division);
+						$("#h_title").val(ui.item.title);						
         }
     }
 		})

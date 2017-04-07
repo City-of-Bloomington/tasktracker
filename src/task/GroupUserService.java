@@ -80,6 +80,9 @@ public class GroupUserService extends HttpServlet{
 						String json = writeJson(users);
 						out.println(json);
 				}
+				else{
+						out.println("[]"); // empty array
+				}
 				out.flush();
 				out.close();
     }

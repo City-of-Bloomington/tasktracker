@@ -36,7 +36,7 @@
 	<div class="tt-row-container">
 		<dl class="fn1-output-field">
 			<dt>Collection Name </dt>
-			<dd><s:select id="selection_id" name="selection" value="%{selection}" list="#{'category':'categories','organ':'Organizations','location':'Locations','recycle':'Recycle Location'}" /> </dd>
+			<dd><s:select id="selection_id" name="selection" value="%{selection}" list="#{'type':'types','location':'locations','group':'groups','department':'departments'}" /> </dd>
 		</dl>		
 		<s:if test="type.id != ''">
 			<dl class="fn1-output-field">

@@ -16,12 +16,13 @@ public class SearchAction extends TopAction{
 		static final long serialVersionUID = 2220L;	
 		static Logger logger = Logger.getLogger(SearchAction.class);
 		//
-		String assign_user_id = "", group_id="";
+		String assigned_user_id = "", group_id="";
 		boolean active_only = false;
 		List<Request> requests = null;
 		RequestList reqlst = null;
 		List<Type> types = null;
 		List<Group> groups = null;
+		List<Location> locations = null;		
 		List<User> users = null;
 		String requestsTitle = "";
 		public String execute(){
@@ -38,10 +39,10 @@ public class SearchAction extends TopAction{
 						}	
 				}
 				// reqlst = new RequestList(debug);
-				if(!action.equals("")){
+				if(action.equals("Search")){
 						getReqlst();
-						if(!assign_user_id.equals("")){
-								reqlst.setAssign_user_id(assign_user_id);
+						if(!assigned_user_id.equals("")){
+								reqlst.setAssigned_user_id(assigned_user_id);
 						}
 						if(active_only){
 								reqlst.setActiveOnly();
@@ -59,7 +60,39 @@ public class SearchAction extends TopAction{
 										addActionMessage(" Found "+requests.size()+" requests");
 								}
 						}
-						
+				}
+				else if(action.equals("Find")){
+						if(assigned_user_id.equals("")){
+								addActionError(" No user selected");
+						}
+						else{
+								getReqlst();
+								if(!assigned_user_id.equals("")){
+										reqlst.setAssigned_user_id(assigned_user_id);
+								}
+								back = reqlst.find();
+								if(!back.equals("")){
+										addActionError(back);
+								}								
+								else {
+										String fullname = "";
+										User assignedUser = new User(debug, assigned_user_id);
+										back = assignedUser.doSelect();
+										if(back.equals("")){
+												fullname = assignedUser.getFullname();
+										}
+										requests = reqlst.getRequests();
+										if(requests == null || requests.size() == 0){
+												addActionMessage(" No requests assigned to "+fullname+" found");
+										}
+										else{
+												addActionMessage(" Found "+requests.size()+" active requests assigned to "+fullname);
+												requestsTitle=" active requests assigned to "+fullname;
+
+										}
+								}
+								
+						}
 				}
 				return ret;
 		}
@@ -77,9 +110,9 @@ public class SearchAction extends TopAction{
 				requestsTitle = "Active Requests ";
 				active_only = true;
 		}
-		public void setAssign_user_id(String val){
+		public void setAssigned_user_id(String val){
 				if(val != null && !val.equals("")){		
-						assign_user_id = val;
+						assigned_user_id = val;
 						if(requestsTitle.equals("")){
 								requestsTitle = "Requests ";
 						}
@@ -119,6 +152,19 @@ public class SearchAction extends TopAction{
 				}
 				return groups;
 		}
+		public List<Location> getLocations(){
+				if(locations == null){
+						LocationList tl = new LocationList(debug);
+						String back = tl.find();
+						if(back.equals("")){
+								List<Location> ones = tl.getLocations();
+								if(ones != null && ones.size() > 0){
+										locations = ones;
+								}
+						}
+				}
+				return locations;
+		}				
 		public List<User> getUsers(){
 				if(users == null){
 						UserList ul = new UserList(debug);

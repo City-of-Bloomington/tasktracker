@@ -33,12 +33,16 @@
 	</s:if>
 	<dl class="fn1-output-field">
 		<dt>Username</dt>
-		<dd><s:textfield name="user.username" size="10" value="%{user.username}" /></dd>
+		<dd><s:textfield name="user.username" size="10" value="%{user.username}" required="true" /></dd>
 	</dl>	
 	<dl class="fn1-output-field">
 		<dt>Full Name </dt>
-		<dd><s:textfield name="user.fullName" value="%{user.fullname}" size="30" maxlength="70" /> </dd>
+		<dd><s:textfield name="user.fullName" value="%{user.fullname}" size="30" maxlength="70" required="true" /> </dd>
 	</dl>
+	<dl class="fn1-output-field">
+		<dt>Email </dt>
+		<dd><s:textfield name="user.email" value="%{user.email}" size="30" maxlength="80" required="true" /> </dd>
+	</dl>	
 	<dl class="fn1-output-field">
 		<dt>Roles</dt>
 		<dd><s:select name="user.role" value="%{user.role}" list="#{'View':'View Only','Edit':'Edit','Edit:Delete':'Edit & Delete','Admin':'Admin','Super User':'Super'}" /></dd>

@@ -21,8 +21,10 @@ public class Task extends CommonInc{
 				task_by="",
 				completed="0", 
 				notes="";
+		String last_task_id = "";
     double expenses = 0.0, hours = 0.0;
 		User user = null;
+		Request request = null;
     //
     public Task(){
 
@@ -63,7 +65,7 @@ public class Task extends CommonInc{
 				setName(val3);
 				setDate(val4);
 				setTask_by(val5);
-				setCompleted(val6);
+				setPercent(val6);
 				setNotes(val7);
 				setHours(val8);
 				setExpenses(val9);
@@ -102,7 +104,7 @@ public class Task extends CommonInc{
 						notes = val;
     }
     public
-		void setCompleted(String val){
+		void setPercent(String val){
 				if(val != null)
 						completed = val;
     }
@@ -143,10 +145,13 @@ public class Task extends CommonInc{
     }
     public
 		String  getDate(){
+				if(id.equals("")){
+						date = Helper.getToday();
+				}
 				return date;
     }
     public
-		String  getCompleted(){
+		String  getPercent(){
 				return completed;
     }
     public
@@ -163,6 +168,17 @@ public class Task extends CommonInc{
 		public boolean isCompleted(){
 				return completed.equals("100");
 		}
+		// probably not needed any more
+		public boolean isLast(){
+				if(last_task_id.equals("")){
+						findLastTaskId();
+				}
+				return !id.equals("") && last_task_id.equals(id);
+		}
+		// a task can be edited if it is the last task and not completed
+		public boolean canEdit(){
+				return !isCompleted();
+		}
 		public User getUser(){
 				if(user == null && !task_by.equals("")){
 						User one = new User(debug, task_by);
@@ -173,6 +189,16 @@ public class Task extends CommonInc{
 				}
 				return user;
 		}
+		public Request getRequest(){
+				if(request == null && !request_id.equals("")){
+						Request one = new Request(debug, request_id);
+						String back = one.doSelect();
+						if(back.equals("")){
+								request = one;
+						}
+				}
+				return request;
+		}		
     public String doSave(){
 				String msg = "";
 				Connection con = null;
@@ -337,6 +363,42 @@ public class Task extends CommonInc{
 				}
 				return msg;
 		}
+		/**
+		 * prob not needed anymore
+		 */
+    public String findLastTaskId(){
+				String msg = "";
+				Connection con = null;
+				PreparedStatement stmt = null;
+				ResultSet rs = null;
+				String qq = "select max(id) from tasks where request_id=? ";
+
+				if(debug){
+						logger.debug(qq);
+				}
+				con = Helper.getConnection();
+				if(con == null){
+						msg = "Could not connect to DB";
+						addError(msg);
+						return msg;
+				}
+				try{
+						stmt = con.prepareStatement(qq);
+						stmt.setString(1, request_id);
+						rs = stmt.executeQuery();
+						if(rs.next()){
+								last_task_id = rs.getString(1);
+						}
+				}
+				catch(Exception ex){
+						logger.error(ex+":"+qq);
+						msg += ex;
+				}
+				finally{
+						Helper.databaseDisconnect(con, stmt, rs);
+				}
+				return msg;
+		}		
 		String checkRequestCompletion(){
 				String back = "";
 				if(!completed.equals("100") || request_id.equals("")){
@@ -344,9 +406,12 @@ public class Task extends CommonInc{
 				}
 				Request rq = new Request(debug, request_id);
 				rq.setUser_id(task_by);
-				return rq.doClose();
+				if(rq.isCompleted()){
+						return rq.doClose();
+				}
+				return back;
 		}
-		
+
 }
 
 

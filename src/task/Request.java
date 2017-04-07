@@ -18,23 +18,20 @@ public class Request extends CommonInc{
     String id="", 
 				type_id="", 
 				status="", 
-				group_id="",
-				location="", 
+				group_id="", 
+				location_id="", other_location="", 
 				date="", summary="", due_date="",
-				time="", description=""; 				
-		// employee info from ldap
-		String username="",
-				fullname="", 
-				phone="",
-				dept="", // we merged dept and division
-				division="";
-		String assign_user_id=""; // adding new assignment
+				time="", description="",employee_id=""; 				
+		String assign_user_id=""; // new assignment
 		String user_id = ""; // needed for logs
+		User user = null;
 		Type type=null;
 		Group group = null;
+		Location location = null;
 		List<Task> tasks = null;
 		List<Assignment> assignments = null;
 		List<RequestLog> logs = null;
+		Employee employee = null;
     //
     // basic constructor
     //
@@ -57,47 +54,44 @@ public class Request extends CommonInc{
 									 String val9,
 									 String val10,
 									 String val11,
-									 String val12,
-									 String val13,
-									 String val14,
-									 String val15
+									 String val12
 									 ){
 				super(deb);
 				setValues(val, val2, val3, val4, val5, val6, val7, val8, val9,
-									val10, val11, val12, val13, val14, val15);
+									val10, val11, val12);
 		}
 		private void setValues(
-											String val,
-											String val2,
-											String val3,
-											String val4,
-											String val5,
-											String val6,
-											String val7,
-											String val8,									 
-											String val9,
-											String val10,
-											String val11,
-											String val12,
-											String val13,
-											String val14,
-											String val15
+													 String val,
+													 String val2,
+													 String val3,
+													 String val4,
+													 String val5,
+													 String val6,
+													 String val7,
+													 String val8,									 
+													 String val9,
+													 String val10,
+													 String val11,
+													 String val12
 											){
 				setId(val);
 				setType_id(val2);
 				setStatus(val3);
 				setDate(val4);
 				setTime(val5);
-				setUsername(val6);
-				setFullname(val7);
-				setPhone(val8);
-				setDept(val9);
-				setDivision(val10);
-				setGroup_id(val11);
-				setLocation(val12);
-				setSummary(val13);
-				setDescription(val14);
-				setDue_date(val15);
+				/*
+				setRequesterEmail(val6);
+				setRequesterFullname(val7);
+				setRequesterPhone(val8);
+				setRequesterDept(val9);
+				*/
+				setEmployee_id(val6);
+				setGroup_id(val7);
+				setLocation_id(val8);
+				setOther_location(val9);
+				setSummary(val10);
+				setDescription(val11);
+				setDue_date(val12);
 		}
     //
     // setters
@@ -113,31 +107,43 @@ public class Request extends CommonInc{
 						type_id = val;
     }
     public
+				void setEmployee_id(String val){
+				if(val != null && !val.equals("-1"))
+						employee_id = val;
+    }		
+    public
 				void setStatus(String val){
 				if(val != null){				
 						status = val;
 				}
     }
+		/*
     public
-				void setUsername(String val){ 
+				void setRequestEmail(String val){ 
 				if(val != null)								
-						username = val;
+						requester_email = val;
     }
     public
-				void setFullname(String val){ 
+				void setRequesterFullname(String val){ 
 				if(val != null)								
-						fullname = val;
+						requester_fullname = val;
     }		
     public
-				void setPhone(String val){
+				void setRequesterPhone(String val){
 				if(val != null)				
-						phone = val.trim();
+						requester_phone = val.trim();
+    }
+		*/
+    public
+				void setLocation_id(String val){
+				if(val != null)				
+						location_id = val;
     }
     public
-				void setLocation(String val){
+				void setOther_location(String val){
 				if(val != null)				
-						location = val.trim();
-    }
+						other_location = val.trim();
+    }		
     public
 				void setDate(String val){
 				if(val != null)				
@@ -162,16 +168,6 @@ public class Request extends CommonInc{
 				void setDescription(String val){
 				if(val != null)				
 						description = val.trim();
-    }
-    public
-				void setDept(String val){
-				if(val != null)				
-						dept = val.trim();
-    }
-    public
-				void setDivision(String val){
-				if(val != null)				
-						division = val.trim();
     }
     public
 				void setGroup_id(String val){
@@ -203,46 +199,57 @@ public class Request extends CommonInc{
 				String  getStatus(){
 				return status;
     }
-
+		/*
     public
-				String  getPhone(){
-				return phone;
+				String  getRequesterPhone(){
+				return requester_phone;
+    }
+		*/
+    public
+				String  getLocation_id(){
+				return location_id;
     }
     public
-				String  getLocation(){
-				return location;
-    }
+				String  getOther_location(){
+				return other_location;
+    }		
     public
 				String  getDate(){
-				if(date.equals("")){
+				if(id.equals("")){
 						date = Helper.getToday();
 				}
 				return date;
     }
     public
 				String  getTime(){
+				if(id.equals("")){
+						time = Helper.getTimeNow();
+				}				
 				return time;
     }
+		/*
     public				
-				String  getUsername(){
-				return username;
+				String  getRequestEmail(){
+				return requester_email;
     }
     public
-				String  getFullname(){
-				return fullname;
-    }		
-    public
-				String  getSummary(){
-				return summary;
+				String  getRequesterFullname(){
+				return requester_fullname;
     }
     public
-				String  getDept(){
-				return dept;
+				String  getRequesterDept(){
+				return requester_dept;
     }
     public
 				String  getDivision(){
 				return division;
+    }		
+		*/
+    public
+				String  getSummary(){
+				return summary;
     }
+
     public
 				String  getGroup_id(){
 				return group_id;
@@ -279,6 +286,28 @@ public class Request extends CommonInc{
 				}
 				return group;
 		}
+		public Location getLocation(){
+				if(location == null && !location_id.equals("")){
+						Location one = new Location(debug, location_id);
+						String back = one.doSelect();
+						if(back.equals("")){
+								location = one;
+						}
+				}
+				return location;
+		}
+		public String getLocationInfo(){
+				String ret = "";
+				getLocation();
+				if(location != null){
+						ret = location.getName();
+				}
+				if(!other_location.equals("")){
+						if(!ret.equals("")) ret += " - ";
+						ret += other_location;
+				}
+				return ret;
+		}
 		public List<Assignment> getAssignments(){
 				if(!id.equals("") && assignments == null){
 						AssignmentList al = new AssignmentList(debug, id);
@@ -310,6 +339,20 @@ public class Request extends CommonInc{
 				}
 				return tasks;
 		}
+		public boolean isCompleted(){
+				if(!canBeChanged()){
+						return true;
+				}
+				getTasks();
+				if(tasks != null && tasks.size() > 0){
+						for(Task one:tasks){
+								if(!one.isCompleted()) return false;
+						}
+						return true;
+				}
+				// if no tasks and not cancelled
+				return false;
+		}
 		public boolean hasTasks(){
 				if(id.equals("")) return false;
 				getTasks();
@@ -328,18 +371,44 @@ public class Request extends CommonInc{
 				}
 				return logs;
 		}
+		
 		public boolean hasLogs(){
 				if(id.equals("")) return false;
 				getLogs();
 				return logs != null && logs.size() > 0;
 		}
-
+		public Employee getEmployee(){
+				if(employee == null){
+						if(!employee_id.equals("")){
+								Employee one = new Employee(debug, employee_id);
+								String back = one.doSelect();
+								employee = one;
+						}
+						else{
+								employee = new Employee(debug);
+						}
+				}
+				return employee;
+		}
+		public boolean hasEmployee(){
+				return !employee_id.equals("");
+		}
+		public String toString(){
+				return summary;
+		}
     public String doSave(){
 				String msg = "";
 				Connection con = null;
 				PreparedStatement stmt = null;
 				ResultSet rs = null;
-				String qq = "insert into requests values(0,?,?,now(),?, ?,?,?,?,?, ?,?,?,?)";
+				getEmployee();
+				if(employee.hasData()){
+						msg = employee.addEmployee();
+						if(msg.equals("")){
+								employee_id = employee.getId();
+						}
+				}
+				String qq = "insert into requests values(0,?,?,now(),?, ?,?,?,?,?, ?,?)";
 				if(debug){
 						logger.debug(qq);
 				}
@@ -383,7 +452,9 @@ public class Request extends CommonInc{
 						if(!assign_user_id.equals("")){
 								Assignment asm = new Assignment(debug, assign_user_id, id);
 								msg = asm.doSave();
-								notes = " request assigned to user id "+assign_user_id;
+								User tmp_user = new User(debug, assign_user_id);
+								msg = tmp_user.doSelect();
+								notes = " request assigned to user "+tmp_user.getFullname();
 						}
 				}				
 				if(msg.equals("")){
@@ -407,42 +478,31 @@ public class Request extends CommonInc{
 								else
 										stmt.setString(jj++, status);
 						}
-						if(username.equals(""))
-								stmt.setNull(jj++, Types.VARCHAR);
-						else 
-								stmt.setString(jj++, username);
-						if(fullname.equals(""))
-								stmt.setNull(jj++, Types.VARCHAR);
-						else 
-								stmt.setString(jj++, fullname);						
-						if(phone.equals(""))
-								stmt.setNull(jj++, Types.VARCHAR);
-						else 
-								stmt.setString(jj++, phone);			
-						if(dept.equals("")){
-								stmt.setNull(jj++, Types.VARCHAR);
+						if(employee_id.equals("")){
+								stmt.setNull(jj++, Types.INTEGER);
 						}
 						else {
-								stmt.setString(jj++, dept);			
-						}
-						if(division.equals("")){
-								stmt.setNull(jj++, Types.VARCHAR);
-						}
-						else {
-								stmt.setString(jj++, division);			
-						}
+								stmt.setString(jj++, employee_id);			
+						}															
 						if(group_id.equals("")){
 								stmt.setNull(jj++, Types.INTEGER);
 						}
 						else {
 								stmt.setString(jj++, group_id);			
-						}			
-						if(location.equals("")){
+						}
+
+						if(location_id.equals("")){
+								stmt.setNull(jj++, Types.INTEGER);
+						}
+						else {
+								stmt.setString(jj++, location_id);		
+						}
+						if(other_location.equals("")){
 								stmt.setNull(jj++, Types.VARCHAR);
 						}
 						else {
-								stmt.setString(jj++, location);		
-						}
+								stmt.setString(jj++, other_location);		
+						}						
 						if(summary.equals("")){
 								stmt.setNull(jj++, Types.VARCHAR);
 						}
@@ -476,7 +536,17 @@ public class Request extends CommonInc{
 				Connection con = null;
 				PreparedStatement stmt = null;
 				ResultSet rs = null;
-				String qq = "update requests set type_id=?,username=?,fullname=?,phone=?,dept=?, division=?,group_id=?, location=?,summary=?, description=?, due_date=? where id=? ";
+				
+				String qq = "update requests set type_id=?,employee_id=?,"+
+						"group_id=?, location_id=?,other_location=?,summary=?, "+
+						"description=?, due_date=? where id=? ";
+				getEmployee();
+				if(employee.hasData()){
+						msg = employee.addEmployee();
+						if(msg.equals("")){
+								employee_id = employee.getId();
+						}
+				}				
 				if(debug){
 						logger.debug(qq);
 				}
@@ -490,7 +560,7 @@ public class Request extends CommonInc{
 						stmt = con.prepareStatement(qq);
 						msg = setParams(stmt);
 						if(msg.equals("")){
-								stmt.setString(12,id);
+								stmt.setString(9,id);
 								stmt.executeUpdate();
 						}
 				}
@@ -506,7 +576,9 @@ public class Request extends CommonInc{
 						if(!assign_user_id.equals("")){
 								Assignment asm = new Assignment(debug, assign_user_id, id);
 								msg = asm.doSave();
-								notes = " new assignment to user id "+assign_user_id;
+								User tmp_user = new User(debug, assign_user_id);
+								msg = tmp_user.doSelect();								
+								notes = " new assignment to user  "+tmp_user.getFullname();
 						}
 				}
 				if(msg.equals("")){				
@@ -575,13 +647,10 @@ public class Request extends CommonInc{
 						"status,"+
 						"date_format(date,'%m/%d/%Y'), "+   // 23
 						"date_format(date,'%h:%i %p'), "+   // time h,l=hour, i=minute
-						"username,"+
-						"fullname,"+
-						"phone,"+
-						"dept,"+
-						"division,"+
+						"employee_id,"+
 						"group_id,"+
-						"location,"+ 						
+						"location_id,"+
+						"other_location,"+
 						"summary,"+
 						"description,"+
 						"date_format(due_date,'%m/%d/%Y') "+						
@@ -612,10 +681,10 @@ public class Request extends CommonInc{
 													rs.getString(9),
 													rs.getString(10),
 													rs.getString(11),
-													rs.getString(12),
-													rs.getString(13),
-													rs.getString(14),
-													rs.getString(15));
+													rs.getString(12));
+								if(!employee_id.equals("")){
+										getEmployee();
+								}
 						}
 						else{
 								msg = "no match found for "+id;

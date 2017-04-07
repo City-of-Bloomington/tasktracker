@@ -19,7 +19,7 @@ public class TaskAction extends TopAction{
 		String request_id = "";
 		Task task = null;
 		List<Task> tasks = null;
-		String tasksTitle = "Current Actions";
+		String tasksTitle = "Current Tasks";
 		public String execute(){
 				String ret = SUCCESS;
 				String back = doPrepare();
@@ -33,6 +33,7 @@ public class TaskAction extends TopAction{
 								System.err.println(ex);
 						}	
 				}
+				System.err.println(" action "+action);
 				if(action.equals("Save")){
 						task.setTask_by(user.getId());
 						back = task.doSave();
@@ -73,6 +74,25 @@ public class TaskAction extends TopAction{
 								}
 						}
 				}
+				else if(action.startsWith("Completed")){
+						task.setTask_by(user.getId());
+						task.setPercent("100");
+						back = task.doUpdate();
+						if(!back.equals("")){
+								addActionError(back);
+						}
+						else{
+								addActionMessage("Updated Successfully");
+								try{
+										HttpServletResponse res = ServletActionContext.getResponse();
+										String str = url+"request.action?id="+task.getRequest_id();
+										res.sendRedirect(str);
+										return super.execute();
+								}catch(Exception ex){
+										System.err.println(ex);
+								}	
+						}
+				}				
 				else{		
 						getTask();
 						if(!id.equals("")){

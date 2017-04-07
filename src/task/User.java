@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 public class User extends CommonInc implements java.io.Serializable{
 
     String id="", username="", role="user", // user, admin
+				email="",
 				dept_id="", division_id="", inactive="";
 		String fullname="";
 		static final long serialVersionUID = 2900L;
@@ -64,7 +65,8 @@ public class User extends CommonInc implements java.io.Serializable{
 								String val4,
 								String val5,
 								String val6,
-								boolean val7
+								String val7,
+								boolean val8
 								){
 				//
 				// initialize
@@ -76,7 +78,8 @@ public class User extends CommonInc implements java.io.Serializable{
 				setRole(val4);				
 				setDept_id(val5);
 				setDivision_id(val6);
-				setInactive(val7);
+				setEmail(val7);
+				setInactive(val8);
     }
 		public String getId(){
 				return id;
@@ -104,6 +107,9 @@ public class User extends CommonInc implements java.io.Serializable{
 		public String getFullname(){
 				return fullname;
 		}
+		public String getEmail(){
+				return email;
+		}		
 		public boolean getInactive(){
 				return !inactive.equals("");
 		}
@@ -120,6 +126,10 @@ public class User extends CommonInc implements java.io.Serializable{
 				if(val != null)
 						role = val;
 		}
+		public void setEmail(String val){
+				if(val != null)
+						email = val;
+		}		
 		public void setDept_id(String val){
 				if(val != null)
 						dept_id = val;
@@ -155,7 +165,10 @@ public class User extends CommonInc implements java.io.Serializable{
 		}
 		public boolean isSuper(){
 				return hasRole("Super");
-		}		
+		}
+		public boolean hasEmail(){
+				return !email.equals("");
+		}
     //
     public String toString(){
 				return fullname;
@@ -234,7 +247,7 @@ public class User extends CommonInc implements java.io.Serializable{
 				Connection con = null;
 				PreparedStatement stmt = null;
 				ResultSet rs = null;		
-				String qq = " select id,username,fullname,role,dept_id,division_id,inactive from users where  ";
+				String qq = " select id,username,fullname,role,dept_id,division_id,email,inactive from users where  ";
 				if(!id.equals("")){
 						qq += " id = ? ";
 				}
@@ -269,7 +282,8 @@ public class User extends CommonInc implements java.io.Serializable{
 								setRole(rs.getString(4));								
 								setDept_id(rs.getString(5));
 								setDivision_id(rs.getString(6));
-								setInactive(rs.getString(7) != null);
+								setEmail(rs.getString(7));
+								setInactive(rs.getString(8) != null);
 						}
 						else{
 								msg = " No such user";
@@ -298,7 +312,7 @@ public class User extends CommonInc implements java.io.Serializable{
 						msg = "username or  full name not set";
 						return msg;
 				}
-				qq = "insert into users values(0,?,?,?,?,?,?)";
+				qq = "insert into users values(0,?,?,?,?,?,?,?)";
 				//
 				if(debug){
 						logger.debug(qq);
@@ -322,10 +336,15 @@ public class User extends CommonInc implements java.io.Serializable{
 								stmt.setNull(5,Types.INTEGER);
 						else
 								stmt.setString(5, division_id);
-						if(inactive.equals(""))
-								stmt.setNull(6,Types.CHAR);
+
+						if(email.equals(""))
+								stmt.setNull(6,Types.INTEGER);
 						else
-								stmt.setString(6, "y");						
+								stmt.setString(6, email);
+						if(inactive.equals(""))						
+								stmt.setNull(7,Types.CHAR);
+						else
+								stmt.setString(7, "y");						
 						stmt.executeUpdate();
 						qq = "select LAST_INSERT_ID() ";
 						if(debug){
@@ -355,7 +374,7 @@ public class User extends CommonInc implements java.io.Serializable{
 		
 				String str="", msg="";
 				String qq = "";
-				qq = "update users set username=?,fullname=?,role=?,dept_id=?,division_id=?,inactive=? where id=?";
+				qq = "update users set username=?,fullname=?,role=?,dept_id=?,division_id=?,email=?,inactive=? where id=?";
 				//
 				if(id.equals("") || username.equals("") || fullname.equals("")){
 						msg = "User id, username or full name not set";
@@ -386,11 +405,15 @@ public class User extends CommonInc implements java.io.Serializable{
 								stmt.setNull(5,Types.INTEGER);
 						else
 								stmt.setString(5, division_id);
-						if(inactive.equals(""))
-								stmt.setNull(6,Types.CHAR);
+						if(email.equals(""))
+								stmt.setNull(6,Types.VARCHAR);
 						else
-								stmt.setString(6, "y");						
-						stmt.setString(6, id);
+								stmt.setString(6, email);								
+						if(inactive.equals(""))
+								stmt.setNull(7,Types.CHAR);
+						else
+								stmt.setString(7, "y");						
+						stmt.setString(8, id);
 						stmt.executeUpdate();
 				}
 				catch(Exception ex){

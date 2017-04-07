@@ -20,9 +20,10 @@ public class RequestList extends CommonInc{
 		SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 		String id="", limit="limit 30";
 		String group_id = "", division="", dept="", type_id="", status="",
-				date_from="", date_to="", which_date = "r.date", location="",
+				date_from="", date_to="", which_date = "r.date", location_id="",
+				other_location="",
 				content="", // summary or description
-				username="", phone="", assigned_user_id="";
+				email="", phone="", assigned_user_id="";
 		boolean active_only = false;
 		List<Request> requests = null;
 		public RequestList(){
@@ -75,6 +76,11 @@ public class RequestList extends CommonInc{
 				if(val != null){
 						date_to = val;
 				}
+		}
+		public void setLocation_id(String val){
+				if(val != null && !val.equals("-1")){
+						location_id = val;
+				}
 		}		
 		public String getId(){
 				return id;
@@ -115,6 +121,9 @@ public class RequestList extends CommonInc{
 		public String getDate_from(){
 				return date_from;
 		}
+		public String getLocation_id(){
+				return location_id;
+		}		
 		public String getDate_to(){
 				return date_to;
 		}		
@@ -135,17 +144,14 @@ public class RequestList extends CommonInc{
 						"r.status,"+
 						"date_format(r.date,'%m/%d/%Y'), "+   // 23
 						"date_format(r.date,'%h:%i %p'), "+   // time h,l=hour, i=minute
-						"r.username,"+
-						"r.fullname,"+
-						"r.phone,"+
-						"r.dept,"+
-						"r.division,"+
+						"r.employee_id,"+
 						"r.group_id,"+
-						"r.location,"+ 						
+						"r.location_id,"+
+						"r.other_location,"+
 						"r.summary,"+
 						"r.description,"+
 						"date_format(r.due_date,'%m/%d/%Y') "+						
-						"from requests r";
+						"from requests r left join employees e on r.employee_id = e.id ";
 				if(con == null){
 						back = "Could not connect to DB";
 						addError(back);
@@ -168,16 +174,20 @@ public class RequestList extends CommonInc{
 						}
 						if(!dept.equals("")){
 								if(!qw.equals("")) qw += " and ";
-								qw += " r.dept like ? ";
+								qw += " e.dept like ? ";
 						}
 						if(!division.equals("")){
 								if(!qw.equals("")) qw += " and ";
-								qw += " r.division like ? ";
+								qw += " e.division like ? ";
 						}						
 						if(!group_id.equals("")){
 								if(!qw.equals("")) qw += " and ";
 								qw += " r.group_id=?";								
 						}
+						if(!location_id.equals("")){
+								if(!qw.equals("")) qw += " and ";
+								qw += " r.location_id = ?";								
+						}						
 						if(!date_from.equals("")){
 								if(!qw.equals("")) qw += " and ";
 								qw += which_date+" >= ?";										
@@ -230,6 +240,9 @@ public class RequestList extends CommonInc{
 								if(!group_id.equals("")){
 										pstmt.setString(jj++,group_id);		
 								}
+								if(!location_id.equals("")){
+										pstmt.setString(jj++,location_id);		
+								}								
 								if(!date_from.equals("")){
 										java.util.Date date_tmp = df.parse(date_from);
 										pstmt.setDate(jj++, new java.sql.Date(date_tmp.getTime()));
@@ -259,10 +272,7 @@ public class RequestList extends CommonInc{
 																rs.getString(9),
 																rs.getString(10),
 																rs.getString(11),
-																rs.getString(12),
-																rs.getString(13),
-																rs.getString(14),
-																rs.getString(15)
+																rs.getString(12)
 																);
 								requests.add(one);
 						}

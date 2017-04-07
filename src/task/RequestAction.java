@@ -22,8 +22,9 @@ public class RequestAction extends TopAction{
 		List<Type> types = null;
 		List<Group> groups = null; // all request will be based on a group selected
 		List<User> users = null;
+		List<Location> locations = null;
 		String requestsTitle = "Current requests";
-		String tasksTitle = "Request Actions";
+		String tasksTitle = "Request Tasks";
 		String logsTitle = "Request History";		
 		public String execute(){
 				String ret = SUCCESS;
@@ -108,6 +109,7 @@ public class RequestAction extends TopAction{
 				}		
 				return request;
 		}
+
 		@Override
 		public String getId(){
 				if(id.equals("") && request != null){
@@ -127,6 +129,7 @@ public class RequestAction extends TopAction{
 						request = val;
 				}
 		}
+
 		public void setGroup(Group val){
 				if(val != null){
 						group = val;
@@ -200,6 +203,19 @@ public class RequestAction extends TopAction{
 				}
 				return groups;
 		}
+		public List<Location> getLocations(){
+				if(locations == null){
+						LocationList tl = new LocationList(debug);
+						String back = tl.find();
+						if(back.equals("")){
+								List<Location> ones = tl.getLocations();
+								if(ones != null && ones.size() > 0){
+										locations = ones;
+								}
+						}
+				}
+				return locations;
+		}		
 		public List<User> getUsers(){
 				if(users == null){
 						UserList ul = new UserList(debug);

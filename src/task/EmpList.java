@@ -100,11 +100,13 @@ public class EmpList extends CommonInc{
 								SearchResult sr = (SearchResult)(answer.next());
 								Attributes atts = sr.getAttributes();
 								//
+								/*
 								Attribute cn = (Attribute)(atts.get("cn"));
 								if (cn != null){
 										String userid = cn.get().toString();
 										emp.setUsername(userid);
 								}
+								*/
 								Attribute givenname = (Attribute)(atts.get("givenName"));
 								if (givenname != null){
 										fullName = givenname.get().toString();
@@ -133,8 +135,13 @@ public class EmpList extends CommonInc{
 								Attribute title = (Attribute)(atts.get("title"));
 								if (title != null){
 										String post = title.get().toString();
-										// user.setTitle(post);
+										emp.setJobTitle(post);
 								}
+								Attribute email = (Attribute)(atts.get("mail"));
+								if (email != null){
+										String post = email.get().toString();
+										emp.setEmail(post);
+								}								
 								if(emps == null){
 										emps = new ArrayList<>();
 								}

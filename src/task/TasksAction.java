@@ -20,7 +20,7 @@ public class TasksAction extends TopAction{
 		String request_id = "";
 		Task task = null;
 		List<Task> tasks = null;
-		String tasksTitle = "Current Active Actions";
+		String tasksTitle = "Current Active Tasks";
 		public String execute(){
 				String ret = SUCCESS;
 				String back = doPrepare();

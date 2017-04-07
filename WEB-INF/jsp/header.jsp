@@ -51,6 +51,7 @@
 								<a href="<s:property value='#application.url'/>user.action">Users</a>
 								<a href="<s:property value='#application.url'/>group.action">Groups</a>
 								<a href="<s:property value='#application.url'/>groupUser.action">Manage Groups</a>
+								<a href="<s:property value='#application.url'/>report.action">Reports</a>								
 							</div>
 						</nav>
           </s:if>
@@ -60,9 +61,12 @@
 	<div class="fn1-nav1">
       <nav class="fn1-nav1-container">
 				<a href="<s:property value='#application.url'/>request.action">New Request</a>
-				<a href="<s:property value='#application.url'/>tasks.action">Active Task List</a>
-				<a href="<s:property value='#application.url'/>requests.action?assigned_user_id=<s:property value='#session.user.id' />">Assinged to me</a>				
-				<a href="<s:property value='#application.url'/>requests.action?activeOnly=true">Active Requests</a>
+				<a href="<s:property value='#application.url'/>requests.action?activeOnly=true">Active Requests</a>				
+				<a href="<s:property value='#application.url'/>tasks.action">Active Tasks</a>
+				<a href="<s:property value='#application.url'/>requests.action?unassigned=true">Unassigned</a>
+				<a href="<s:property value='#application.url'/>requests.action?assigned_user_id=<s:property value='#session.user.id' />">Assinged to me</a>
+				<a href="<s:property value='#application.url'/>assignToOthers.action">Assigned to Others</a>				
+
 				<a href="<s:property value='#application.url'/>search.action">Search</a>
       </nav>
     </div>

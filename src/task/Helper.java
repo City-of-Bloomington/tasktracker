@@ -6,6 +6,7 @@ package task;
  */
 import java.io.File;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.sql.*;
 import java.nio.file.*;
@@ -505,6 +506,36 @@ public class Helper{
 				day += dd;
 				return month+"/"+day+"/"+year;
     }
+    public final static String getDateFromToday(int days){
+
+				String day="",month="",year="";
+				Calendar cal = Calendar.getInstance();
+				cal.add(Calendar.DATE, days);
+				
+				int mm =  (cal.get(Calendar.MONTH)+1);
+				int dd =   cal.get(Calendar.DATE);
+				year = ""+ cal.get(Calendar.YEAR);
+				if(mm < 10) month = "0";
+				month += mm;
+				if(dd < 10) day = "0";
+				day += dd;
+				return month+"/"+day+"/"+year;
+    }
+    public final static String getDateFrom(String date, int days){
+
+				String dt="";
+				if(date == null) return dt;
+				SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+				String day="",month="",year="";
+				try{
+						java.util.Date myDate = format.parse(date);				
+						Calendar cal = Calendar.getInstance();
+						cal.setTime(myDate);
+						cal.add(Calendar.DATE, days);
+						dt = format.format(cal.getTime());
+				}catch(Exception ex){}
+				return dt;
+    }		
 		//
     public final static String getTimeNow(){
 

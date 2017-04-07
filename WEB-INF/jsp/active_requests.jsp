@@ -5,7 +5,7 @@
  * @author W. Sibo <sibow@bloomington.in.gov>
  *
 	-->
-<h3>Active Requests</h3>
+<h3><s:property value="requestsHeader" /></h3>
 <s:if test="hasActionErrors()">
 	<div class="errors">
     <s:actionerror/>

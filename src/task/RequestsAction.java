@@ -17,10 +17,12 @@ public class RequestsAction extends TopAction{
 		static Logger logger = Logger.getLogger(RequestsAction.class);
 		//
 		boolean active_only = true;
+		boolean unassigned = false;
 		String request_id = "";
 		String assigned_user_id = "";
 		List<Request> requests = null;
-		static String requestsTitle = "Current Active Requests";
+		String requestsTitle = "Current Active Requests";
+		String requestsHeader = "Active Requests";
 		public String execute(){
 				String ret = SUCCESS;
 				String back = doPrepare();
@@ -41,6 +43,9 @@ public class RequestsAction extends TopAction{
 		public String getRequestsTitle(){
 				return requestsTitle;
 		}
+		public String getRequestsHeader(){
+				return requestsHeader;
+		}		
 		public void setAction2(String val){
 				if(val != null && !val.equals(""))		
 						action = val;
@@ -52,13 +57,22 @@ public class RequestsAction extends TopAction{
 		public void setActiveOnly(boolean val){
 				active_only = val;
 		}
+		public void setUnassigned(boolean val){
+				unassigned = val;
+		}
 		public List<Request> getRequests(){
 				if(requests == null){
 						RequestList tl = new RequestList(debug);
 						if(!assigned_user_id.equals("")){
 								tl.setAssigned_user_id(assigned_user_id);
+								tl.setActiveOnly();
 						}
-						tl.setActiveOnly();
+						else if(unassigned){
+								tl.setStatus("Unassigned");
+						}
+						else{
+								tl.setActiveOnly();
+						}
 						String back = tl.find();
 						if(back.equals("")){
 								List<Request> ones = tl.getRequests();
@@ -72,6 +86,15 @@ public class RequestsAction extends TopAction{
 								}
 								else{
 										requestsTitle = "No active requests assigned to you";
+								}
+						}
+						else if(unassigned){
+								requestsHeader= "Unassigned Requests";
+								if(requests != null && requests.size() > 0){
+										requestsTitle = "Current unassinged requests";
+								}
+								else{
+										requestsTitle = "No unassigned requests found";
 								}
 						}
 						else{

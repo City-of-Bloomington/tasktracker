@@ -73,33 +73,38 @@ public class TaskList extends CommonInc{
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
 				Connection con = Helper.getConnection();
-				String qq = "select u.id,u.request_id,u.name,date_format(u.date,'%m/%d/%Y'),u.task_by,u.completed,u.notes,u.hours,u.expenses from tasks u ", qw ="";
+				String qq = "select u.id,u.request_id,u.name,date_format(u.date,'%m/%d/%Y'),u.task_by,u.completed,u.notes,u.hours,u.expenses from tasks u,requests r ", qw ="";
+				qw = "u.request_id=r.id ";
+				Set<String> idSet = null;
 				if(con == null){
 						back = "Could not connect to DB";
 						addError(back);
 						return back;
 				}
 				if(!id.equals("")){
+						qw += " and ";						
 						qw += " u.id = ? ";
 				}
 				else{
 						if(!request_id.equals("")){
-								if(!qw.equals("")) qw += " and ";
+								qw += " and ";
 								qw += " u.request_id=? ";
 						}
 						if(!exclude_task_id.equals("")){
-								if(!qw.equals("")) qw += " and ";
+								qw += " and ";
 								qw += " u.id <> ? ";								
 						}
 						if(!task_by.equals("")){
-								if(!qw.equals("")) qw += " and ";
+								qw += " and ";
 								qw += " u.task_by=? ";
 						}
 						if(active_only){
-								qw += " u.completed != '100' ";
+								qw += " and ";								
+								qw += " u.completed != '100' and (r.status ='Active' or r.status='Unassinged') ";
+								idSet = new HashSet<>();
 						}						
 						if(!completed.equals("")){
-								if(!qw.equals("")) qw += " and ";
+								qw += " and ";
 								qw += " u.completed=? ";
 						}
 
@@ -140,6 +145,14 @@ public class TaskList extends CommonInc{
 						while(rs.next()){
 								if(tasks == null)
 										tasks = new ArrayList<>();
+								/*
+								if(idSet != null){
+										String r_id = rs.getString(2);
+										if(idSet.contains(r_id)) continue;
+										else
+												idSet.add(r_id);
+								}
+								*/
 								Task one =
 										new Task(debug,
 														 rs.getString(1),
