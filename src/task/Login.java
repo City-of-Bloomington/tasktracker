@@ -63,9 +63,14 @@ public class Login extends HttpServlet{
 						if(user != null && session != null){
 								userFound = true;
 								session.setAttribute("user",user);
+								String action = url+"welcome.action";
+								// we need this when we send a url to a user
+								// when assigned to him/her
+								if(!id.equals("")){
+										action = url+"request.action?id="+id;
+								}
 								out.println("<head><title></title><META HTTP-EQUIV=\""+
-														"refresh\" CONTENT=\"0; URL=" + url +
-														"welcome.action" + 
+														"refresh\" CONTENT=\"0; URL=" + action+
 														"\"></head>");
 								out.println("<body>");
 								out.println("</body>");

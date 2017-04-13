@@ -69,6 +69,10 @@ public class GroupUser extends CommonInc {
 				return group_users != null && group_users.size() > 0;
 		}
 		public boolean hasOtherUsers(){
+				//
+				// we do not show user list without having group id set
+				//
+				if(group_id.equals("")) return false;
 				getOther_users();
 				return other_users != null && other_users.size() > 0;
 		}		
@@ -87,7 +91,7 @@ public class GroupUser extends CommonInc {
 				if(other_users == null){
 						UserList ul = new UserList();
 						if(!group_id.equals("")){
-								ul.setExclude_group_id(group_id);
+								ul.setExcludeGroup_id(group_id);
 						}
 						if(!dept_id.equals("")){
 								ul.setDept_id(dept_id);

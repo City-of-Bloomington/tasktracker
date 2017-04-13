@@ -18,9 +18,10 @@ public class UserList extends CommonInc{
 		String name = "", id="", username="", role="",
 				limit="";
 		String group_id = "", request_id="", exclude_group_id="",
+				group_managers_id="", exclude_group_managers_id="",
 				exclude_dept_id="",
 				dept_id="", division_id="";
-		boolean exclude_current_request_assignees = false;
+		boolean exclude_current_request_assignees = false, active_only = true;
 		
 		List<User> users = null;
 		public UserList(){
@@ -64,10 +65,18 @@ public class UserList extends CommonInc{
 				if(val != null && !val.equals("-1"))
 						division_id = val;
 		}				
-		public void setExclude_group_id(String val){
+		public void setExcludeGroup_id(String val){
 				if(val != null)
 						exclude_group_id = val;
 		}
+		public void setExcludeGroupManagers_id(String val){
+				if(val != null)
+						exclude_group_managers_id = val;
+		}
+		public void setGroupManagers_id(String val){
+				if(val != null)
+						group_managers_id = val;
+		}		
 		public void setExclude_dept_id(String val){
 				if(val != null)
 						exclude_dept_id = val;
@@ -83,6 +92,12 @@ public class UserList extends CommonInc{
 		public String getGroup_id(){
 				return group_id;
 		}
+		public String getGroupManagers_id(){
+				return group_managers_id;
+		}
+		public String getExcludeGroupManagers_id(){
+				return exclude_group_managers_id; // group id
+		}		
 		public String getDept_id(){
 				if(dept_id.equals("")){
 						return "-1";
@@ -116,6 +131,9 @@ public class UserList extends CommonInc{
 		public void setNoLimit(){
 				limit = "";
 		}
+		public void setActiveOnly(){
+				active_only = true;
+		}
 		public String find(){
 		
 				String back = "";
@@ -138,7 +156,11 @@ public class UserList extends CommonInc{
 						if(!username.equals("")){
 								if(!qw.equals("")) qw += " and ";
 								qw += " u.username like ? ";
-						}						
+						}
+						if(active_only){
+								if(!qw.equals("")) qw += " and ";								
+								qw += " u.inactive is null ";
+						}
 						if(!role.equals("")){
 								if(!qw.equals("")) qw += " and ";
 								qw += " u.role=? ";
@@ -165,6 +187,16 @@ public class UserList extends CommonInc{
 								qw += " not u.id in (select ug.user_id from group_users ug where ug.group_id = ?)";			
 								
 						}
+						if(!group_managers_id.equals("")){
+								qq += ", group_managers gm ";
+								if(!qw.equals("")) qw += " and ";
+								qw += " gm.user_id=u.id and gm.group_id=?";								
+						}
+						else if(!exclude_group_managers_id.equals("")){
+								if(!qw.equals("")) qw += " and ";
+								qw += " not u.id in (select gm.user_id from group_managers gm where gm.group_id = ?)";			
+								
+						}						
 						if(!request_id.equals("") && exclude_current_request_assignees){
 								if(!qw.equals("")) qw += " and ";
 								qw += " not u.id in (select a.user_id from assignments a where a.request_id=? ) ";
@@ -175,7 +207,7 @@ public class UserList extends CommonInc{
 						qq += " where "+qw;
 				}
 				qq += " order by u.fullname ";
-				
+				// System.err.println(qq);
 				if(!limit.equals("")){
 						qq += limit;
 				}
@@ -216,6 +248,12 @@ public class UserList extends CommonInc{
 								else if(!exclude_group_id.equals("")){
 										pstmt.setString(jj++,exclude_group_id);		
 								}
+								if(!group_managers_id.equals("")){
+										pstmt.setString(jj++,group_managers_id);		
+								}
+								else if(!exclude_group_managers_id.equals("")){
+										pstmt.setString(jj++,exclude_group_managers_id);		
+								}								
 								if(!request_id.equals("") && exclude_current_request_assignees){
 										pstmt.setString(jj++,request_id);
 								}

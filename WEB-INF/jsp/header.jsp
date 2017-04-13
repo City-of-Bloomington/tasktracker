@@ -41,6 +41,7 @@
             <div class="menuLinks closed" style="background-color:wheat">
 							<br />
               <a href="<s:property value='#application.url'/>logout.action">Logout</a>
+              <a href="<s:property value='#application.url'/>help.html">Help</a>							
             </div>
           </nav>
           <s:if test="#session.user.isAdmin()">					
@@ -48,10 +49,11 @@
 							<div class="menuLauncher">Admin</div>
 							<div class="menuLinks closed" style="background-color:wheat">
 								<br />
+								<a href="<s:property value='#application.url'/>report.action">Reports</a>																
 								<a href="<s:property value='#application.url'/>user.action">Users</a>
 								<a href="<s:property value='#application.url'/>group.action">Groups</a>
-								<a href="<s:property value='#application.url'/>groupUser.action">Manage Groups</a>
-								<a href="<s:property value='#application.url'/>report.action">Reports</a>								
+								<a href="<s:property value='#application.url'/>groupUser.action">Users' Groups</a>
+								<a href="<s:property value='#application.url'/>groupManager.action">Group Managers</a>
 							</div>
 						</nav>
           </s:if>

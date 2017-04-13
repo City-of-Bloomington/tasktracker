@@ -55,11 +55,16 @@
 			<dl class="fn1-output-field">
 				<dt>Summary </dt>
 				<dd><s:textfield name="request.summary" value="%{request.summary}" size="30" maxlength="100" required="true" titl="brief description of the request" />* </dd>
-			</dl>		
-			<dl class="fn1-output-field">
-				<dt> Type</dt>
-				<dd><s:select name="request.type_id" value="%{request.type_id}" list="types" listKey="id" listValue="name" required="true" />*</dd>
 			</dl>
+			<s:if test="haveTypes()">
+				<dl class="fn1-output-field">
+					<dt> Type</dt>
+					<dd>
+						<s:select name="request.type_id" value="%{request.type_id}" list="types" listKey="id" listValue="name" required="true" />*
+						
+					</dd>
+				</dl>
+			</s:if>
 			<s:if test="id != ''">
 				<dl class="fn1-output-field">
 					<dt>Status </dt>

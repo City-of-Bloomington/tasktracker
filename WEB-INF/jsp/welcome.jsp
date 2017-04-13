@@ -21,6 +21,7 @@ Please Select one of the following options from the top menu:
 		<li> To add/remove a user from a group select 'Manage Goups' from the 'Admin' link in top.</li>
 	</s:if>
 	<li> When you are done, click on your name link in top and then click 'Logout' </li>
+	<li> For more info go to <a href="<s:property value='#application.url' />help.html">Help page</a></li>
 </ul>
 
 

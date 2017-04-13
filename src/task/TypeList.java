@@ -89,6 +89,7 @@ public class TypeList extends CommonInc{
 								qq += " where "+qw;
 						}
 						qq += " order by t.name ";
+						
 						if(debug){
 								logger.debug(qq);
 						}

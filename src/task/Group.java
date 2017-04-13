@@ -15,6 +15,7 @@ public class Group extends Type{
 		static final long serialVersionUID = 800L;	
 		static Logger logger = Logger.getLogger(Group.class);
 		List<User> users = null;
+		List<User> groupManagers = null;
 		//
 		
 		public Group(){
@@ -62,6 +63,31 @@ public class Group extends Type{
 						}
 				}
 				return users;
+		}
+		public List<User> getGroupManagers(){
+				if(groupManagers == null && !id.equals("")){
+						UserList ul = new UserList(debug);
+						ul.setGroupManagers_id(id);
+						String back = ul.find();
+						if(back.equals("")){
+								List<User> ones = ul.getUsers();
+								if(ones != null && ones.size() > 0){
+										groupManagers = ones;
+								}
+						}
+				}
+				return groupManagers;
+		}
+		public User getOneGroupManager(){
+				getGroupManagers();
+				if(groupManagers != null && groupManagers.size() > 0){
+						return groupManagers.get(0);
+				}
+				return null;
+		}
+		public boolean hasGroupManagers(){
+				getGroupManagers();
+				return groupManagers != null && groupManagers.size() > 0;
 		}
 		/**
 		 * check if a given user is in the group

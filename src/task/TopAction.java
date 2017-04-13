@@ -26,7 +26,7 @@ import org.apache.log4j.Logger;
 public abstract class TopAction extends ActionSupport implements SessionAware, ServletContextAware{
 
 		static final long serialVersionUID = 2400L;	
-		boolean debug = false;
+		boolean debug = false, activeMail = false;
 		String action="", id="";
 		static Logger logger = Logger.getLogger(TopAction.class);
 		static String url="", server_path="";
@@ -56,20 +56,28 @@ public abstract class TopAction extends ActionSupport implements SessionAware, S
 				return user;
 		}		
 		String doPrepare(){
-				String back = "";
+				String back = "", val="";
 				try{
 						user = (User)sessionMap.get("user");
 						if(user == null){
 								back = LOGIN;
 						}
 						if(url.equals("")){
-								String val = ctx.getInitParameter("url");
+								val = ctx.getInitParameter("url");
 								if(val != null)
 										url = val;
 								val = ctx.getInitParameter("server_path");
 								if(val != null)
-										server_path = val;								
+										server_path = val;
 						}
+						val = ctx.getInitParameter("activeMail");
+						if(val != null && val.equals("true")){
+								activeMail = true;																
+						}
+						val = ctx.getInitParameter("debug");
+						if(val != null && val.equals("true")){
+								debug = true;																
+						}				
 				}catch(Exception ex){
 						System.out.println(ex);
 				}		

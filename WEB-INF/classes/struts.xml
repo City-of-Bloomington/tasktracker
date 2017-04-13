@@ -84,6 +84,13 @@
 			<result name="error">/WEB-INF/jsp/groupUser.jsp</result>
 			<result name="success">/WEB-INF/jsp/groupUser.jsp</result>
 		</action>
+		<action name="groupManager" 
+						class="task.GroupManagerAction" 
+						method="execute">
+			<result name="input">/WEB-INF/jsp/groupManager.jsp</result>		
+			<result name="error">/WEB-INF/jsp/groupManager.jsp</result>
+			<result name="success">/WEB-INF/jsp/groupManager.jsp</result>
+		</action>		
 		<action name="group" 
 						class="task.GroupAction" 
 						method="execute">

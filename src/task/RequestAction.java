@@ -50,7 +50,16 @@ public class RequestAction extends TopAction{
 								addActionError(back);
 						}
 						else{
-								addActionMessage("Added Successfully");
+								System.err.println(" active mail "+activeMail);								
+								if(activeMail){
+										System.err.println(" request check email");
+										back = request.checkEmailSendNeed("New", user, url);
+										if(!back.equals("")){
+												addActionError(back);
+										}
+								}
+								if(back.equals(""))
+										addActionMessage("Added Successfully");
 						}
 				}				
 				else if(action.startsWith("Save")){
@@ -61,6 +70,9 @@ public class RequestAction extends TopAction{
 								addActionError(back);
 						}
 						else{
+								if(activeMail){
+										request.checkEmailSendNeed("Updated", user, url);
+								}
 								addActionMessage("Updated Successfully");
 						}
 				}
@@ -183,6 +195,7 @@ public class RequestAction extends TopAction{
 						String back = tl.find();
 						if(back.equals("")){
 								List<Type> ones = tl.getTypes();
+								System.err.println(" size "+ones.size());
 								if(ones != null && ones.size() > 0){
 										types = ones;
 								}
@@ -241,6 +254,10 @@ public class RequestAction extends TopAction{
 				getUsers();
 				return users != null && users.size() > 0;
 		}
+		public boolean haveTypes(){
+				getTypes();
+				return types != null && types.size() > 0;
+		}		
 		
 }
 

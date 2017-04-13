@@ -11,8 +11,8 @@
 	<h2>Manage Users in Groups</h2>
 	<ul>
 		<li>To start, pick a group from the list</li>
-		<li>* Checkbox to add to the group </li>
-		<li>** checkbox to remove from the group </li>
+		<li>* checkbox to remove the user from the group </li>		
+		<li>** Checkbox to add user to the group </li>
 	</ul>
   <s:if test="hasActionErrors()">
 		<div class="errors">
@@ -27,33 +27,32 @@
 	<dl class="fn1-output-field">
 		<dt>Groups</dt>
 		<dd><s:select name="groupUser.group_id" value="%{groupUser.group_id}" list="groups" listKey="id" listValue="name" headerKey="-1" headerValue="Pick Group" id="selection_id" /></dd>
-	</dl>	
+	</dl>
+	<s:if test="groupUser.hasGroupUsers()">
+		<table width="90%" border="1"><caption><s:property value="groupUsersTitle" /></caption>
+			<tr><td>* </td><td>Users </td></tr>			
+			<s:iterator var="one" value="groupUser.group_users">
+			<tr>
+				<td><input type="checkbox" name="groupUser.del_users" value="<s:property value='id' />" /></td>
+				<td><s:property value="fullname" /></td>
+			</tr>
+		</s:iterator>
+		</table>
+		<s:submit name="action" type="button" value="Remove from this group" class="fn1-btn"/>		
+	</s:if>	
 	<s:if test="groupUser.hasOtherUsers()">
 		<table width="90%" border="1"><caption><s:property value="otherUsersTitle" /></caption>
-			<tr><td>*</td><td>Name</td><td>Group(s)</td></tr>
+			<tr><td>** </td><td>Users</td></tr>
 			<s:iterator var="one" value="groupUser.other_users">
 				<tr>
 					<td><input type="checkbox" name="groupUser.add_users" value="<s:property value='id' />" /></td>
 					<td><s:property value="fullname" /></td>
-					<td><s:property value="groupNames" /></td>
 				</tr>
 			</s:iterator>
 		</table>
 		<s:submit name="action" type="button" value="Add to this group" class="fn1-btn"/>
 	</s:if>
-	<s:if test="groupUser.hasGroupUsers()">
-		<table width="90%" border="1"><caption><s:property value="groupUsersTitle" /></caption>
-			<tr><td>**</td><td>Name</td><td>Group(s)</td></tr>			
-			<s:iterator var="one" value="groupUser.group_users">
-			<tr>
-				<td><input type="checkbox" name="groupUser.del_users" value="<s:property value='id' />" /></td>
-				<td><s:property value="fullname" /></td>
-				<td><s:property value="groupNames" /></td>
-			</tr>
-		</s:iterator>
-		</table>
-		<s:submit name="action" type="button" value="Remove from this group" class="fn1-btn"/>		
-	</s:if>
+
 </s:form>
 
 <%@  include file="footer.jsp" %>

@@ -32,6 +32,7 @@ public class Request extends CommonInc{
 		List<Assignment> assignments = null;
 		List<RequestLog> logs = null;
 		Employee employee = null;
+		User assignee = null;  // for a new assignment
     //
     // basic constructor
     //
@@ -393,6 +394,18 @@ public class Request extends CommonInc{
 		public boolean hasEmployee(){
 				return !employee_id.equals("");
 		}
+		public User getAssignee(){
+				if(assignee == null && !assign_user_id.equals("")){
+						User one = new User(debug, assign_user_id);
+						String back = one.doSelect();
+						assignee = one;
+				}
+				return assignee;
+		}
+		public boolean hasNewAssignee(){
+				getAssignee();
+				return assignee != null;
+		}
 		public String toString(){
 				return summary;
 		}
@@ -408,7 +421,7 @@ public class Request extends CommonInc{
 								employee_id = employee.getId();
 						}
 				}
-				String qq = "insert into requests values(0,?,?,now(),?, ?,?,?,?,?, ?,?)";
+				String qq = "insert into requests values(0,?,?,now(),?, ?,?,?,?,?, ?)";
 				if(debug){
 						logger.debug(qq);
 				}
@@ -701,7 +714,87 @@ public class Request extends CommonInc{
 		}
     public String doClose(){
 				return updateStatus("Closed");
-    }		
+    }
+		/**
+		 * email is sent when a new assignment is set (on save or update)
+		 * @param type, 'New' for new request, or 'Update' for updated with a new group for example
+		 */
+		public String checkEmailSendNeed(String type, User user, String url){
+				// this new assignee (if any)
+				String back = "";
+				String mail_from = user.getEmail();
+				String mail_to = null;
+				String mail_subject = "TaskTracker ";
+				String mail_msg = "";
+				String mail_cc = null;
+				String mail_status = "Success";
+				if(type.equals("New")){
+						mail_subject += " new request ";
+				}
+				else{
+						mail_subject += " request ";
+				}
+				if(!summary.equals("")){
+						if(summary.length() > 30){
+								mail_subject += summary.substring(0,30); 
+						}
+						else{
+								mail_subject += summary;
+						}
+				}
+				mail_msg = summary;
+				getAssignee();
+				if(assignee != null){
+						//
+						// send an email to assignee to inform him about the request
+						//
+						mail_to = assignee.getEmail();
+						mail_msg += " this request has been assigned to you. ";
+						mail_msg += "<a href=\""+url+"Login?id="+id+"\"> Click here to login </a>";
+						
+						MsgMail mail = new MsgMail(mail_to,
+																			 mail_from,
+																			 mail_subject,
+																			 mail_msg,
+																			 debug);
+						back = mail.doSend();
+						if(!back.equals("")){
+								mail_status = "Failure";
+						}
+						MailLog mlog = new MailLog(debug, id, mail_to, mail_from, mail_cc, mail_subject, mail_msg, mail_status, back);
+						back += mlog.doSave();
+				}
+				//
+				// inform the group manager if it is new request
+				//
+				if(type.equals("New")){
+						getGroup();
+						if(group != null){
+								User gman = group.getOneGroupManager();
+								// inform group manager about the new request
+								mail_msg = summary;
+								if(assignee != null){
+										
+										mail_msg += " this request has been assigned to "+assignee.getFullname();
+								}
+								mail_to = gman.getEmail();
+								MsgMail mail = new MsgMail(mail_to,
+																					 mail_from,
+																					 mail_subject,
+																					 mail_msg,
+																					 debug);
+								String back2 = mail.doSend();
+								if(!back2.equals("")){
+										mail_status = "Failure";
+										if(!back.equals("")) back +=", "; 
+										back += back2;
+								}
+								MailLog mlog = new MailLog(debug, id, mail_to, mail_from, mail_cc, mail_subject, mail_msg, mail_status, back2);
+								back = mlog.doSave();
+						}
+				}
+				return back;
+		}
 }
 
 
