@@ -97,7 +97,14 @@ function windowOpener(url, name, args) {
  }
 function changeGroupUsers(obj, sct_id){
 		var group_id = "";
-		group_id = obj.options.selectedIndex;
+		group_id = obj.options[obj.options.selectedIndex].value;
+		if(group_id == '-1'){
+				var sct = document.getElementById(sct_id);
+				sct.options.length = 0;
+				sct.options[0] = new Option ('Pick a User', ''); 
+				sct.options[0].selected="true";
+				return;
+		}
 		$.ajax({
 				url: APPLICATION_URL + "GroupUserService?group_id="+group_id,
 				dataType:'json'

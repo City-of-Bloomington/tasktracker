@@ -206,6 +206,7 @@ public class RequestAction extends TopAction{
 		public List<Group> getGroups(){
 				if(groups == null){
 						GroupList tl = new GroupList(debug);
+						tl.setActiveOnly();
 						String back = tl.find();
 						if(back.equals("")){
 								List<Group> ones = tl.getGroups();
@@ -219,6 +220,7 @@ public class RequestAction extends TopAction{
 		public List<Location> getLocations(){
 				if(locations == null){
 						LocationList tl = new LocationList(debug);
+						tl.setActiveOnly();
 						String back = tl.find();
 						if(back.equals("")){
 								List<Location> ones = tl.getLocations();
@@ -232,6 +234,7 @@ public class RequestAction extends TopAction{
 		public List<User> getUsers(){
 				if(users == null){
 						UserList ul = new UserList(debug);
+						ul.setActiveOnly();
 						ul.setExclude_dept_id("1");// do not include ITS 
 						getGroup_id();
 						if(!group_id.equals("")){

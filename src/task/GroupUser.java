@@ -79,6 +79,7 @@ public class GroupUser extends CommonInc {
 		public List<User> getGroup_users(){
 				if(group_users == null && !group_id.equals("")){
 						UserList ul = new UserList();
+						ul.setActiveOnly();
 						ul.setGroup_id(group_id);
 						String back = ul.find();
 						if(back.equals("")){
@@ -90,6 +91,7 @@ public class GroupUser extends CommonInc {
 		public List<User> getOther_users(){
 				if(other_users == null){
 						UserList ul = new UserList();
+						ul.setActiveOnly();
 						if(!group_id.equals("")){
 								ul.setExcludeGroup_id(group_id);
 						}

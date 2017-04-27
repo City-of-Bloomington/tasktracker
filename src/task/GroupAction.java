@@ -86,6 +86,7 @@ public class GroupAction extends TopAction{
 		public List<Group> getGroups(){
 				if(groups == null){
 						GroupList tl = new GroupList(debug);
+						// tl.setActiveOnly();
 						String back = tl.find();
 						if(back.equals("")){
 								List<Group> ones = tl.getGroups();

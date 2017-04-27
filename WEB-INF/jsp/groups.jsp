@@ -10,7 +10,7 @@
 		<tr>
 			<th align="center"><b>ID</b></th>
 			<th align="center"><b>Name</b></th>
-			<th align="center"><b>Inactive</b></th>						
+			<th align="center"><b>Inactive?</b></th>						
 		</tr>
 	</thead>
 	<tbody>
@@ -18,7 +18,7 @@
 			<tr>
 				<td><a href="<s:property value='#application.url' />group.action?id=<s:property value='id' />">Edit</a></td>
 				<td><s:property value="name" /></td>
-				<td>&nbsp;<s:if test="inactive">Yes</s:if></td>
+				<td><s:if test="inactive">Yes</s:if><s:else>No</s:else></td>
 			</tr>
 		</s:iterator>
 	</tbody>

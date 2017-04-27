@@ -13,6 +13,7 @@
 			<th align="center"><b>Full Name</b></th>
 			<th align="center"><b>Email</b></th>
 			<th align="center"><b>Role</b></th>
+			<th align="center"><b>Inactive?</b></th>
 			<th align="center"><b>Groups</b></th>
 		</tr>
 	</thead>
@@ -24,6 +25,7 @@
 				<td><s:property value="fullname" /></td>
 				<td><s:property value="email" /></td>				
 				<td><s:property value="roleInfo" /></td>
+				<td><s:if  test="inactive">Yes</s:if><s:else>No</s:else></td>				
 				<td>&nbsp;<s:property value="groupNames" /></td>
 			</tr>
 		</s:iterator>

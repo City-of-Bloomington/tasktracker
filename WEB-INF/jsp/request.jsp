@@ -60,8 +60,7 @@
 				<dl class="fn1-output-field">
 					<dt> Type</dt>
 					<dd>
-						<s:select name="request.type_id" value="%{request.type_id}" list="types" listKey="id" listValue="name" required="true" />*
-						
+						<s:select name="request.type_id" value="%{request.type_id}" list="types" listKey="id" listValue="name" required="true" headerKey="-1" headerValue="Pick Request Type" />*
 					</dd>
 				</dl>
 			</s:if>
@@ -73,7 +72,7 @@
 			</s:if>
 			<dl class="fn1-output-field">
 				<dt> Related Group</dt>
-				<dd><s:select name="request.group_id" value="%{request.group_id}" list="groups" listKey="id" listValue="name" required="true" onchange="changeGroupUsers(this,'assign_user_id');"/>*</dd>
+				<dd><s:select name="request.group_id" value="%{request.group_id}" list="groups" listKey="id" listValue="name" required="true" headerKey="-1" headerValue="Pick a Group" onchange="changeGroupUsers(this,'assign_user_id');"/>*</dd>
 			</dl>
 			<dl class="fn1-output-field">
 				<dt> Location</dt>

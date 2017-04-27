@@ -85,6 +85,7 @@ public class GroupUserAction extends TopAction{
 		public List<Type> getGroups(){
 				if(groups == null){
 						TypeList tl = new TypeList(debug, null, "groups");
+						tl.setActiveOnly();
 						String back = tl.find();
 						if(back.equals("")){
 								List<Type> ones = tl.getTypes();
@@ -95,22 +96,7 @@ public class GroupUserAction extends TopAction{
 				}
 				return groups;
 		}
-		/**
-		public List<User> getOther_users(){
-				getGroupUser();
-				if(groupUser != null){
-						other_users = groupUser.getOtherUsers();
-				}
-				return other_users;
-		}
-		public List<User> getGroup_users(){
-				getGroupUser();
-				if(groupUser != null){
-						group_users = groupUser.getGroupUsers();
-				}
-				return group_users;
-		}		
-		*/
+
 }
 
 

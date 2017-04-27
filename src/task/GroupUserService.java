@@ -70,6 +70,7 @@ public class GroupUserService extends HttpServlet{
 				if(!group_id.equals("")){
 						//
 						userList = new UserList(debug);
+						userList.setActiveOnly();
 						userList.setGroup_id(group_id);
 						String back = userList.find();
 						if(back.equals("")){

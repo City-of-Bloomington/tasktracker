@@ -87,6 +87,7 @@ public class GroupManagerAction extends TopAction{
 		public List<Type> getGroups(){
 				if(groups == null){
 						TypeList tl = new TypeList(debug, null, "groups");
+						tl.setActiveOnly();
 						String back = tl.find();
 						if(back.equals("")){
 								List<Type> ones = tl.getTypes();

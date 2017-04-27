@@ -251,8 +251,8 @@ public class User extends CommonInc implements java.io.Serializable{
 				if(!id.equals("")){
 						qq += " id = ? ";
 				}
-				else if(!username.equals("")){
-						qq += " username = ? ";
+				else if(!username.equals("")){ // for login
+						qq += " username = ? and inactive is null ";
 				}
 				else {
 						msg = " User id or username not set";

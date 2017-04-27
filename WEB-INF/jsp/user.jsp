@@ -37,7 +37,7 @@
 	</dl>	
 	<dl class="fn1-output-field">
 		<dt>Full Name </dt>
-		<dd><s:textfield name="user.fullName" value="%{user.fullname}" size="30" maxlength="70" required="true" /> </dd>
+		<dd><s:textfield name="user.fullname" value="%{user.fullname}" size="30" maxlength="70" required="true" /> </dd>
 	</dl>
 	<dl class="fn1-output-field">
 		<dt>Email </dt>
@@ -48,8 +48,9 @@
 		<dd><s:select name="user.role" value="%{user.role}" list="#{'View':'View Only','Edit':'Edit','Edit:Delete':'Edit & Delete','Admin':'Admin','Super User':'Super'}" /></dd>
 	</dl>
 	<dl class="fn1-output-field">
-		<dt>Department</dt>
-		<dd></dd>
+		<dt>Inactive ?</dt>
+		<dd><s:checkbox name="user.inactive" value="%{user.inactive}" /> Yes (check to disable)
+		</dd>
 	</dl>	
 	<s:if test="user.id == ''">
 		<s:submit name="action" type="button" value="Save" class="fn1-btn"/>

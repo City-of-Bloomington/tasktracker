@@ -66,7 +66,7 @@
 				<a href="<s:property value='#application.url'/>requests.action?activeOnly=true">Active Requests</a>				
 				<a href="<s:property value='#application.url'/>tasks.action">Active Tasks</a>
 				<a href="<s:property value='#application.url'/>requests.action?unassigned=true">Unassigned</a>
-				<a href="<s:property value='#application.url'/>requests.action?assigned_user_id=<s:property value='#session.user.id' />">Assinged to me</a>
+				<a href="<s:property value='#application.url'/>requests.action?assigned_user_id=<s:property value='#session.user.id' />">Assigned to me</a>
 				<a href="<s:property value='#application.url'/>assignToOthers.action">Assigned to Others</a>				
 
 				<a href="<s:property value='#application.url'/>search.action">Search</a>

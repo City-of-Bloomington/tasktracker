@@ -21,7 +21,7 @@ public class UserList extends CommonInc{
 				group_managers_id="", exclude_group_managers_id="",
 				exclude_dept_id="",
 				dept_id="", division_id="";
-		boolean exclude_current_request_assignees = false, active_only = true;
+		boolean exclude_current_request_assignees = false, active_only = false;
 		
 		List<User> users = null;
 		public UserList(){
@@ -50,7 +50,7 @@ public class UserList extends CommonInc{
 						id = val;
 		}
 		public void setGroup_id(String val){
-				if(val != null)
+				if(val != null && !val.equals("-1"))
 						group_id = val;
 		}
 		public void setDept_id(String val){
@@ -207,7 +207,6 @@ public class UserList extends CommonInc{
 						qq += " where "+qw;
 				}
 				qq += " order by u.fullname ";
-				// System.err.println(qq);
 				if(!limit.equals("")){
 						qq += limit;
 				}

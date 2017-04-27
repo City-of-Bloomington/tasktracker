@@ -134,7 +134,7 @@ public class UserAction extends TopAction{
 		public List<User> getUsers(){ 
 				if(users == null){
 						UserList dl = new UserList();
-						dl.setNoLimit();
+						// dl.setNoLimit();
 						String back = dl.find();
 						users = dl.getUsers();
 				}		

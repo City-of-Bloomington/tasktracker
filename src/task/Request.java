@@ -414,6 +414,12 @@ public class Request extends CommonInc{
 				Connection con = null;
 				PreparedStatement stmt = null;
 				ResultSet rs = null;
+				if(group_id.equals("")){
+						msg = " Need to pick a group ";
+				}
+				if(summary.equals("")){
+						msg = " You need to provide a summary of the request";
+				}
 				getEmployee();
 				if(employee.hasData()){
 						msg = employee.addEmployee();
