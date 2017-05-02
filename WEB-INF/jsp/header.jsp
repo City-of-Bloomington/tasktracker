@@ -40,7 +40,7 @@
             <div class="menuLauncher"><s:property value='#session.user.fullname' /></div>
             <div class="menuLinks closed" style="background-color:wheat">
 							<br />
-              <a href="<s:property value='#application.url'/>logout.action">Logout</a>
+              <a href="<s:property value='#application.url'/>Logout">Logout</a>
               <a href="<s:property value='#application.url'/>help.html">Help</a>							
             </div>
           </nav>

@@ -27,8 +27,8 @@ public class Logout extends HttpServlet{
 		Enumeration values = req.getParameterNames();
 		String name= "";
 		String value = "";
-		if(url4.equals("")){
-			url4 = getServletContext().getInitParameter("url4");
+		if(url == null || url.equals("")){
+			url = getServletContext().getInitParameter("url");
 			cas_url = getServletContext().getInitParameter("cas_url");
 		}
 		HttpSession session = null;
@@ -36,7 +36,7 @@ public class Logout extends HttpServlet{
 		if(session != null){
 			session.invalidate();
 		}
-		String str = cas_url+"?url="+url4;
+		String str = cas_url;
 		res.sendRedirect(str);
 		return;
 		/*
