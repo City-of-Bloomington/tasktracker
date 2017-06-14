@@ -137,7 +137,7 @@ public class Request extends CommonInc{
 		*/
     public
 				void setLocation_id(String val){
-				if(val != null)				
+				if(val != null && !val.equals("-1"))				
 						location_id = val;
     }
     public
