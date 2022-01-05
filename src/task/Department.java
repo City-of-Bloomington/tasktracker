@@ -9,12 +9,13 @@ import java.sql.*;
 import java.io.*;
 import java.util.List;
 import java.util.ArrayList;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Department extends Type{
 
 		static final long serialVersionUID = 400L;			
-		static Logger logger = Logger.getLogger(Department.class);
+		static Logger logger = LogManager.getLogger(Department.class);
 		List<Division> divisions = null;
 
     public Department(){

@@ -21,8 +21,8 @@ import org.apache.commons.fileupload.servlet.*;
 import org.apache.commons.fileupload.disk.*;
 import org.apache.commons.io.*;
 import javax.servlet.ServletException;
-import org.apache.log4j.Logger;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @SuppressWarnings("unchecked")
 public class FileDownload extends HttpServlet{
@@ -30,7 +30,7 @@ public class FileDownload extends HttpServlet{
     String url="", pc_path="",server_path="";
     boolean debug = false;
 		final static long serialVersionUID = 750L;
-		static Logger logger = Logger.getLogger(FileDownload.class);
+		static Logger logger = LogManager.getLogger(FileDownload.class);
 		private static final int DEFAULT_BUFFER_SIZE = 10240; // 10KB.
 		//
     /**

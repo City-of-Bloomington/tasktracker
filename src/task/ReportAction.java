@@ -11,13 +11,14 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.ServletActionContext;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ReportAction extends TopAction{
 
 		static final long serialVersionUID = 97L;	
    
-		static Logger logger = Logger.getLogger(ReportAction.class);
+		static Logger logger = LogManager.getLogger(ReportAction.class);
 		Report report = null;
 		List<Group> groups = null;
 		List<Type> types = null;

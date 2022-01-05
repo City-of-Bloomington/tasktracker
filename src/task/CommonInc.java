@@ -7,16 +7,15 @@ package task;
 import java.sql.*;
 import java.util.List;
 import java.util.ArrayList;
-import javax.naming.*;
-import javax.naming.directory.*;
 import java.text.SimpleDateFormat;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class CommonInc{
 
 		boolean debug = false;
 		static final long serialVersionUID = 300L;			
-		static Logger logger = Logger.getLogger(CommonInc.class);
+		static Logger logger = LogManager.getLogger(CommonInc.class);
    	String message = "";
 		List<String> errors = null;
 		//

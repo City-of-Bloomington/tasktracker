@@ -6,7 +6,8 @@ package task;
  */
 import java.sql.*;
 import java.util.*;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class LdapUser extends CommonInc implements java.io.Serializable{
 
@@ -14,7 +15,7 @@ public class LdapUser extends CommonInc implements java.io.Serializable{
 				dept="", division="", title="", phone="";
 		String fullname="";
 		static final long serialVersionUID = 1400L;
-		static Logger logger = Logger.getLogger(LdapUser.class);
+		static Logger logger = LogManager.getLogger(LdapUser.class);
 		static Map<String, String> rolesMap = null;
 		//
 		public LdapUser(){

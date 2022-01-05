@@ -8,8 +8,8 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class EmployeeService extends HttpServlet{
 
@@ -17,7 +17,7 @@ public class EmployeeService extends HttpServlet{
     boolean debug = false;
 		static EnvBean envBean = null;
 		static final long serialVersionUID = 1450L;
-		static Logger logger = Logger.getLogger(EmployeeService.class);
+		static Logger logger = LogManager.getLogger(EmployeeService.class);
 
 
     public void doGet(HttpServletRequest req,

@@ -8,12 +8,12 @@ import java.util.*;
 import java.sql.*;
 import java.io.*;
 import javax.sql.*;
-import org.apache.log4j.Logger;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class TaskList extends CommonInc{
 
-		static Logger logger = Logger.getLogger(TaskList.class);
+		static Logger logger = LogManager.getLogger(TaskList.class);
 		static final long serialVersionUID = 2300L;
 		String name = "", id="", limit="limit 30";
 		String request_id = "", task_by="", completed="";

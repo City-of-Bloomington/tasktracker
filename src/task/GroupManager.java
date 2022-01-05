@@ -6,7 +6,8 @@ package task;
  */
 import java.sql.*;
 import java.util.*;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class GroupManager extends CommonInc {
 
@@ -15,7 +16,7 @@ public class GroupManager extends CommonInc {
 		List<User> group_managers = null;
 		List<User> other_users = null;
 		static final long serialVersionUID = 1110L;
-		static Logger logger = Logger.getLogger(GroupManager.class);
+		static Logger logger = LogManager.getLogger(GroupManager.class);
 		//
 		public GroupManager(){
 				super();

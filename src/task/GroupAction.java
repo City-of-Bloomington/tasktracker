@@ -9,12 +9,13 @@ import java.io.*;
 import java.text.*;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.ServletActionContext;  
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class GroupAction extends TopAction{
 
 		static final long serialVersionUID = 900L;	
-		static Logger logger = Logger.getLogger(GroupAction.class);
+		static Logger logger = LogManager.getLogger(GroupAction.class);
 		//
 		User user = null;
 		Group group = null;

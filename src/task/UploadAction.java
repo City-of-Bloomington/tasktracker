@@ -11,13 +11,14 @@ import java.nio.file.*;
 import org.apache.commons.io.FileUtils;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.ServletActionContext;  
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class UploadAction extends TopAction{
 
 		static final long serialVersionUID = 20L;	
 		String request_id="", notes="";
-		static Logger logger = Logger.getLogger(UploadAction.class);	
+		static Logger logger = LogManager.getLogger(UploadAction.class);	
 		private File file;
 		private String contentType, saveDir="";
 		private String filename;

@@ -11,12 +11,13 @@ import java.nio.file.*;
 import org.apache.commons.io.FileUtils;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.ServletActionContext;  
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class AttachSearchAction extends TopAction{
 
 		static final long serialVersionUID = 235L;	
-		static Logger logger = Logger.getLogger(AttachSearchAction.class);	
+		static Logger logger = LogManager.getLogger(AttachSearchAction.class);	
 
 		private List<FileUpload> uploads = null;
 		private FileUploadList uploadList = null;

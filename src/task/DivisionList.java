@@ -8,12 +8,12 @@ import java.util.*;
 import java.sql.*;
 import java.io.*;
 import javax.sql.*;
-import org.apache.log4j.Logger;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class DivisionList extends CommonInc{
 
-		static Logger logger = Logger.getLogger(DivisionList.class);
+		static Logger logger = LogManager.getLogger(DivisionList.class);
 		static final long serialVersionUID = 600L;
 		String name = ""; // for service
 		String dept_id = "", exclude_dept_id="";

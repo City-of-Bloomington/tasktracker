@@ -9,12 +9,12 @@ import java.sql.*;
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import org.apache.log4j.Logger;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Logout extends HttpServlet{
 
-		static Logger logger = Logger.getLogger(Logout.class);
+		static Logger logger = LogManager.getLogger(Logout.class);
 		static final long serialVersionUID = 1700L;		
     String url = "", url4="", cas_url="";
 

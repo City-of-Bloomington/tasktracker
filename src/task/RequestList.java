@@ -9,12 +9,13 @@ import java.sql.*;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import javax.sql.*;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 public class RequestList extends CommonInc{
 
-		static Logger logger = Logger.getLogger(RequestList.class);
+		static Logger logger = LogManager.getLogger(RequestList.class);
 		
 		static final long serialVersionUID = 2000L;
 		SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");

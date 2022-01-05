@@ -9,15 +9,15 @@ import java.sql.*;
 import javax.naming.*;
 import javax.naming.directory.*;
 import java.nio.charset.*;
-import org.apache.log4j.Logger;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class FileUpload implements java.io.Serializable{
 
     String id="", file_name="", old_file_name="", user_id="", date="";
 		String request_id="", notes="";
 		static final long serialVersionUID = 760L;		
-		static Logger logger = Logger.getLogger(FileUpload.class);
+		static Logger logger = LogManager.getLogger(FileUpload.class);
 		User user = null;
 		Request request = null;
     public FileUpload(){

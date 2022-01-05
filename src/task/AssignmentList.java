@@ -8,11 +8,12 @@ import java.util.*;
 import java.sql.*;
 import java.io.*;
 import javax.sql.*;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class AssignmentList extends CommonInc{
 
-		static Logger logger = Logger.getLogger(AssignmentList.class);
+		static Logger logger = LogManager.getLogger(AssignmentList.class);
 		static final long serialVersionUID = 200L;
 		String name = "", id="", limit="limit 30";
 		String request_id = "", user_id="", group_id="";

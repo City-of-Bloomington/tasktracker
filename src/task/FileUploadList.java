@@ -7,8 +7,8 @@ package task;
 import java.sql.*;
 import java.util.List;
 import java.util.ArrayList;
-import org.apache.log4j.Logger;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class FileUploadList{
 
@@ -17,7 +17,7 @@ public class FileUploadList{
 		String request_id="";
 		String limit = " limit 10 ";
 		static final long serialVersionUID = 770L;		
-		static Logger logger = Logger.getLogger(FileUploadList.class);
+		static Logger logger = LogManager.getLogger(FileUploadList.class);
 		List<FileUpload> uploads = null;
     public FileUploadList(){
 		

@@ -9,12 +9,13 @@ import java.io.*;
 import java.text.*;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.ServletActionContext;  
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class SearchAction extends TopAction{
 
 		static final long serialVersionUID = 2220L;	
-		static Logger logger = Logger.getLogger(SearchAction.class);
+		static Logger logger = LogManager.getLogger(SearchAction.class);
 		//
 		String assigned_user_id = "", group_id="";
 		boolean active_only = false;

@@ -7,13 +7,15 @@ package task;
 import java.io.*;
 import java.sql.*;
 import java.text.SimpleDateFormat;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 public class RequestLog extends CommonInc{
 
 		SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 		static final long serialVersionUID = 2150L;	
-		static Logger logger = Logger.getLogger(RequestLog.class);	
+		static Logger logger = LogManager.getLogger(RequestLog.class);	
     String id="", 
 				request_id="",
 				type="",

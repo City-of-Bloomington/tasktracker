@@ -4,17 +4,18 @@ package task;
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author W. Sibo <sibow@bloomington.in.gov>
  */
-import org.apache.log4j.PropertyConfigurator;
+//import org.apache.log4j.PropertyConfigurator;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.io.IOException;
-import org.apache.log4j.Logger;
+// import org.apache.log4j.Logger;
 
 public class Log4jInit extends HttpServlet{
 
 		static final long serialVersionUID = 1500L;
+		/**
 		static Logger logger = Logger.getLogger(Log4jInit.class);		
 		public
 				void init() {
@@ -25,7 +26,7 @@ public class Log4jInit extends HttpServlet{
 						PropertyConfigurator.configure(prefix+file);
 				}
 		}
-
+		*/
 		public
 				void doGet(HttpServletRequest req, HttpServletResponse res) {
 		}

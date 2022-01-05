@@ -12,13 +12,14 @@ import javax.sql.*;
 import java.nio.file.*;
 import javax.naming.*;
 import javax.naming.directory.*;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @SuppressWarnings("unchecked")
 public class Helper{
 
 		static final long serialVersionUID = 1300L;
-		static Logger logger = Logger.getLogger(Helper.class);		
+		static Logger logger = LogManager.getLogger(Helper.class);		
 		static int c_con = 0;
     public final static String statusArr[] = {
 				"Unassigned",

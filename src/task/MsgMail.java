@@ -3,11 +3,12 @@ import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.activation.*;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class MsgMail{
 
-		static Logger logger = Logger.getLogger(MsgMail.class);
+		static Logger logger = LogManager.getLogger(MsgMail.class);
     static String text = "";
     static String to = "";
     static String from = "";

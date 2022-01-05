@@ -6,13 +6,14 @@ package task;
  */
 import java.sql.*;
 import java.text.SimpleDateFormat;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Assignment extends CommonInc{
 
     String user_id="", id="", request_id="", date="";
 		static final long serialVersionUID = 100L;	
-		static Logger logger = Logger.getLogger(Assignment.class);
+		static Logger logger = LogManager.getLogger(Assignment.class);
 		User user = null;
     public Assignment(boolean deb,
 										String val, 

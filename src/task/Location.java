@@ -6,14 +6,13 @@ package task;
  */
 import java.sql.*;
 import java.util.List;
-import javax.naming.*;
-import javax.naming.directory.*;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Location extends Type{
 
 		static final long serialVersionUID = 800L;	
-		static Logger logger = Logger.getLogger(Location.class);
+		static Logger logger = LogManager.getLogger(Location.class);
 		List<User> users = null;
 		//
 		

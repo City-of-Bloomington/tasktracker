@@ -8,13 +8,14 @@ import java.sql.*;
 import java.io.*;
 import java.util.List;
 import java.text.SimpleDateFormat;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Request extends CommonInc{
 
 		SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 		static final long serialVersionUID = 1800L;	
-		static Logger logger = Logger.getLogger(Request.class);	
+		static Logger logger = LogManager.getLogger(Request.class);	
     String id="", 
 				type_id="", 
 				status="", 

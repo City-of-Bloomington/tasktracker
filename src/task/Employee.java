@@ -6,14 +6,15 @@ package task;
  */
 import java.sql.*;
 import java.util.*;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Employee extends CommonInc implements java.io.Serializable{
 
     String email="", fullname="", id="",
 				dept="", division="", job_title="", phone="";
 		static final long serialVersionUID = 1400L;
-		static Logger logger = Logger.getLogger(Employee.class);
+		static Logger logger = LogManager.getLogger(Employee.class);
 		static Map<String, String> rolesMap = null;
 		//
 		public Employee(){

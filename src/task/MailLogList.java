@@ -8,12 +8,12 @@ import java.util.*;
 import java.sql.*;
 import java.io.*;
 import javax.sql.*;
-import org.apache.log4j.Logger;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class MailLogList extends CommonInc{
 
-		static Logger logger = Logger.getLogger(MailLogList.class);
+		static Logger logger = LogManager.getLogger(MailLogList.class);
 		static final long serialVersionUID = 2360L;
 		String name = "", id="", limit="limit 30";
 		String request_id = "", user_id="";

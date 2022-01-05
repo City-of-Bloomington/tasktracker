@@ -8,12 +8,12 @@ import java.util.*;
 import java.sql.*;
 import java.io.*;
 import javax.sql.*;
-import org.apache.log4j.Logger;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class GroupList extends CommonInc{
 
-		static Logger logger = Logger.getLogger(GroupList.class);
+		static Logger logger = LogManager.getLogger(GroupList.class);
 		static final long serialVersionUID = 1000L;
 		String user_id="", name="";
 		boolean active_only = false; // all

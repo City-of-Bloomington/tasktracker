@@ -20,15 +20,16 @@ import org.apache.struts2.dispatcher.SessionMap;
 import org.apache.struts2.interceptor.SessionAware;
 import org.apache.struts2.interceptor.ParameterAware;
 import org.apache.struts2.util.ServletContextAware;  
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import org.apache.log4j.Logger;
 
 public abstract class TopAction extends ActionSupport implements SessionAware, ServletContextAware{
 
 		static final long serialVersionUID = 2400L;	
 		boolean debug = false, activeMail = false;
 		String action="", id="";
-		static Logger logger = Logger.getLogger(TopAction.class);
+		static Logger logger = LogManager.getLogger(TopAction.class);
 		static String url="", server_path="";
 		User user = null;
 	  ServletContext ctx;
